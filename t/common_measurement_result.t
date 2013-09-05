@@ -40,4 +40,21 @@ note 'succeeding construction';
         'result is 42';
 }
 
+note 'type_constraint';
+{
+    {
+        package X;
+        use Moose;
+        has m => (
+            is     => 'rw',
+            isa    => 'T_MeasurementResult',
+            coerce => 1,
+        );
+    }
+    
+    my $x = X->new(m => 42);
+    isa_ok $x->m, $class;
+    is $x->m->result, 42, 'value converted via coercion';
+}
+
 done_testing;

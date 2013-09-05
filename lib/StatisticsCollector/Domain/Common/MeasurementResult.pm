@@ -1,5 +1,6 @@
 package StatisticsCollector::Domain::Common::MeasurementResult;
 use Moose;
+use Moose::Util::TypeConstraints;
 use DateTime;
 use namespace::autoclean;
 
@@ -12,6 +13,21 @@ StatisticsCollector::Domain::Common::MeasurementResult - a measured value
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
+
+=head1 TYPES
+
+=cut
+
+=head2 T_MeasurementResult
+
+=cut
+
+class_type 'T_MeasurementResult',
+    { class => __PACKAGE__ };
+
+coerce 'T_MeasurementResult',
+    from 'Int',
+    via { __PACKAGE__->new( result => $_ ) };
 
 =head1 ATTRIBUTES
 

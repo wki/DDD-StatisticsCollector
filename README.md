@@ -95,7 +95,7 @@ Domain Objects
 
     description: handle measurement results
 
-    Event 'ResultProvided'
+    Event 'MeasureResultProvided'
 
     Application-Service 'MeasureService'
         + provide_result(sensor_name, result)
@@ -113,12 +113,10 @@ Domain Objects
         + alarm_info: AlarmInfo
 
     Aggregate 'Sensor'
-        + provide_result(result) --> publish 'ResultProvided'
-        + result: MeasurementResult
+        + info: SensorInfo
         + daily_results: Summary[]
         + hourly_results: Summary[]
-        + has_alarm: Bool
-        + alarm_info: AlarmInfo
+        + provide_result(result) --> publish 'ResultProvided'
 
     Value 'AlarmInfo'
         + has_alarm: Bool
