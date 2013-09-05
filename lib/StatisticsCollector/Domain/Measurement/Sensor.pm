@@ -29,8 +29,8 @@ an alarm
 =cut
 
 has info => (
-    is => 'rw',
-    isa => 'SensorInfo',
+    is       => 'rw',
+    isa      => SensorInfo,
     required => 1,
 );
 
@@ -39,12 +39,9 @@ has info => (
 =cut
 
 has hourly_results => (
-    # traits  => ['Array'],
     is      => 'rw',
-    isa     => 'ArrayRef[Summary]',
+    isa     => 'ArrayRef[Summary]', # fixme: does 'Summary' work?
     default => sub { [] },
-    # handles => {
-    # },
 );
 
 =head2 daily_results
@@ -52,12 +49,9 @@ has hourly_results => (
 =cut
 
 has daily_results => (
-    # traits  => ['Array'],
     is      => 'rw',
-    isa     => 'ArrayRef[Summary]',
+    isa     => 'ArrayRef[Summary]', # fixme: does 'Summary' work?
     default => sub { [] },
-    # handles => {
-    # },
 );
 
 =head1 METHODS
@@ -72,10 +66,20 @@ or a MeasurementResult object.
 =cut
 
 sub provide_result {
-    my ($self, $result) = @_;
+    my ( $self, $result_or_value ) = @_;
+
+    my $result = MeasurementResult->new(result => $result_or_value);
     
-    $self->info->result($result);
-    $self->publish(MeasureResultProvided->new(result => $result));
+    ### FIXME: schwerfällig
+    # besser? $self->info( $self->info->new_result($result_or_value) )
+    
+    my $info = SensorInfo->new(
+        name       => $self->info->name,
+        result     => $result,
+        alarm_info => $self->info->alarm_info,
+    );
+    $self->info($info);
+    $self->publish( MeasureResultProvided->new( result => $result ) );
 }
 
 __PACKAGE__->meta->make_immutable;

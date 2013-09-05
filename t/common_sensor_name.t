@@ -28,6 +28,23 @@ note 'succeeding construction';
         'tokio/outside/humi_dity2 lives';
 }
 
+note 'type constraint';
+{
+    {
+        package X;
+        use Moose;
+        has n => (
+            is     => 'rw',
+            isa    => 'T_SensorName',
+            coerce => 1,
+        );
+    }
+    
+    my $x = X->new(n => 'a/b/xxx');
+    isa_ok $x->n, $class;
+    is $x->n->name, 'a/b/xxx', 'name converted via coercion';
+}
+
 note 'immutability';
 {
     my $c = $class->new(name => 'a/b/c');

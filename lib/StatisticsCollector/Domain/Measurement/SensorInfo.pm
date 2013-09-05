@@ -22,7 +22,8 @@ measure result and an alarm info of a sensor
 
 has name => (
     is       => 'ro',
-    isa      => 'SensorName',
+    isa      => 'T_SensorName',
+    coerce   => 1,
     required => 1,
 );
 
@@ -35,7 +36,7 @@ has result => (
 
 has alarm_info => (
     is      => 'ro',
-    isa     => 'AlarmInfo',
+    isa     => AlarmInfo,
     default => sub { AlarmInfo->new },
 );
 

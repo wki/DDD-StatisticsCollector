@@ -13,11 +13,26 @@ StatisticsCollector::Domain::Common::SensorName - Sensor name value object
 
 =head1 DESCRIPTION
 
+=head1 TYPES
+
+=cut
+
+=head2 T_SensorName
+
+=cut
+
+class_type 'T_SensorName',
+    { class => __PACKAGE__ };
+
+coerce 'T_SensorName',
+    from 'Str',
+    via { __PACKAGE__->new( name => $_ ) };
+
 =head1 ATTRIBUTES
 
 =cut
 
-subtype 'SensorName',
+subtype 'Constrained_SensorName',
     as 'Str',
     where { m{\A \w+ / \w+ / \w+ \z}xms },
     message { "This name ($_) does not match x/y/z" };
@@ -28,7 +43,7 @@ subtype 'SensorName',
 
 has name => (
     is       => 'ro',
-    isa      => 'SensorName',
+    isa      => 'Constrained_SensorName',
     required => 1,
 );
 
