@@ -1,0 +1,60 @@
+use strict;
+use warnings;
+use DateTime;
+use Test::More;
+use Test::Exception;
+
+use ok 'StatisticsCollector::Domain::Common::MeasurementResult';
+use ok 'StatisticsCollector::Domain::Common::Summary';
+
+our $result  = 'StatisticsCollector::Domain::Common::MeasurementResult';
+our $summary = 'StatisticsCollector::Domain::Common::Summary';
+
+# note 'failing construction';
+# TODO
+
+note 'succeeding construction';
+{
+    my $dt = DateTime->new(
+        year  => 2012,   hour   => 21,
+        month => 12,     minute => 13,
+        day   => 10,     second => 45,
+        time_zone => 'local',
+    );
+    no warnings 'redefine';
+    local *DateTime::now = sub { $dt->clone };
+    use warnings 'redefine';
+
+    my $r1 = $result->new(result => 10);
+    my $r2 = $result->new(result => 20);
+    
+    my $s1 = $summary->from_measurement_result($r1);
+    is $s1->from->hms,
+        '21:00:00',
+        's1: from time is truncated';
+    is $s1->to->hms,
+        '22:00:00',
+        's1: to time is one hour ahead';
+    
+    is $s1->min, 10, 'min is 10';
+    is $s1->max, 10, 'max is 10';
+    is $s1->sum, 10, 'sum is 10';
+    is $s1->nr_values, 1, 'nr_values is 1';
+    
+    my $s2 = $s1->append_result($r2);
+    isnt $s1, $s2, 'new value object created';
+    
+    is $s2->from->hms,
+        '21:00:00',
+        's2: from time is truncated';
+    is $s2->to->hms,
+        '22:00:00',
+        's2: to time is one hour ahead';
+    
+    is $s2->min, 10, 'min is 10';
+    is $s2->max, 20, 'max is 20';
+    is $s2->sum, 30, 'sum is 30';
+    is $s2->nr_values, 2, 'nr_values is 2';
+}
+
+done_testing;
