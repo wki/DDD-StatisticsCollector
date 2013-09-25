@@ -20,14 +20,14 @@ measure result and an alarm info of a sensor
 
 =cut
 
-has name => (
+has sensor => (
     is       => 'ro',
     isa      => 'T_SensorName',
     coerce   => 1,
     required => 1,
 );
 
-has result => (
+has measurement => (
     is       => 'ro',
     isa      => 'T_MeasurementResult',
     coerce   => 1,

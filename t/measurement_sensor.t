@@ -16,8 +16,8 @@ use ok 'StatisticsCollector::Domain::Measurement::Sensor';
 
 my $d = D->new;
 my $i = SensorInfo->new(
-    name   => 'xxx/yy/z',
-    result => 100
+    sensor      => 'xxx/yy/z',
+    measurement => 100
 );
 
 my $s = StatisticsCollector::Domain::Measurement::Sensor->new(
@@ -42,7 +42,8 @@ note 'provide';
     
     $s->provide_result(50);
     
-    is $s->info->result->result, 50, 'result saved';
+    is $s->info->sensor->name, 'xxx/yy/z', 'sensor name saved';
+    is $s->info->measurement->result, 50, 'measurement result saved';
 
     is $s->event_publisher->_nr_events, 1, 'one event waiting';
 }

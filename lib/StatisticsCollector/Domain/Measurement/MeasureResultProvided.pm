@@ -18,11 +18,11 @@ when a MeasureResult has been provided
 
 =cut
 
-=head2 result
+=head2 measurement
 
 =cut
 
-has result => (
+has measurement => (
     is       => 'ro',
     isa      => 'T_MeasurementResult',
     coerce   => 1,

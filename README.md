@@ -76,91 +76,87 @@ Domain Objects
 
 * COMMON things (used across multiple subdomains)
 
-    Value 'SensorName'
+    * Value 'SensorName' / Moose Type 'T_SensorName'
         + name
         + matches_mask(...)
 
-    Value 'MeasurementResult'
+    * Value 'MeasurementResult' / Moose Type 'T_MeasurementResult'
         + measured_on
         + result
 
-    Value 'Summary' (identified value)
+    * Value 'Summary' (identified value)
         + from
         + to
         + min, max, sum, nr_values
         + append_result(result) : Summary
 
 
-* Subdomain 'Measurement' (Core Domain)
+* Subdomain 'Measurement' (Core Domain - handle measurement results)
 
-    description: handle measurement results
+    * Event 'MeasureResultProvided'
 
-    Event 'MeasureResultProvided'
-
-    Application-Service 'MeasureService'
+    * Application-Service 'MeasureService'
         + provide_result(sensor_name, result)
         + list_filtered_sensors(filter): SensorInfo[]
         + condensed_values(sensor_name, n hours/days): Summary[]
 
-    Repository 'Sensors'
+    * Repository 'Sensors'
         + sensor_info(filter): SensorInfo[]
         + sensor_by_name(sensor_name): Sensor
         + save(sensor)
 
-    Value 'SensorInfo'
+    * Value 'SensorInfo'
         + name: SensorName
         + result
         + alarm_info: AlarmInfo
 
-    Aggregate 'Sensor'
+    * Aggregate 'Sensor'
         + info: SensorInfo
-        + daily_results: Summary[]
-        + hourly_results: Summary[]
+        + daily_results: Summary[]  # needed for GUI ???
+        + hourly_results: Summary[] # needed for GUI ???
         + provide_result(result) --> publish 'ResultProvided'
 
-    Value 'AlarmInfo'
+    * Value 'AlarmInfo'
         + has_alarm: Bool
         + raised_on: DateTime
         + name: Str
 
 
-* Subdomain 'Condense' (Supporting Subdomain)
+* Subdomain 'Condense' (Supporting Subdomain - condense provided results into hourly and daily summaries)
 
-    description: condense provided results into hourly and daily summaries
-
-    Event 'SummariesCondensed'  # currently never subscribed
-
-    Application-Service 'CondenseService'
-        + on ResultProvided => condense_hourly
-        + condense_hourly
+    * Application-Service 'CondenseService'
+        + on ResultProvided => append_result
         + condense_daily        # called by batch-script after midnight
 
-    Repository 'Summaries'
+    * Repository 'Summaries'
         + summaries_for_sensor
         + save(summaries)
 
-    Aggregate 'SensorSummaries'
-        + append_result
-        + condense_hourly
+    * Aggregate 'SensorSummaries'
+        + info: SensorInfo // alternative: name: SensorName
+        + daily_results: Summary[]
+        + hourly_results: Summary[]
+        + append_result(result)
         + condense_daily
 
 
 
-* Subdomain 'Alarm' (Supporting Subdomain)
+* Subdomain 'Alarm' (Supporting Subdomain - check alarm conditions for sensors)
 
-    Event 'AlarmRaised'
-    Event 'AlarmCleared'
+    * Event 'AlarmRaised'
+    
+    * Event 'AlarmCleared'
 
-    Application-Service 'Alarm'
+    * Application-Service 'Alarm'
         + on ResultProvided => check_alarm(sensor_name)
         + check_alarm(sensor_name)
         + check_alarms_for_silent_sensors
 
-    Repository 'Rules'
+    * Repository 'Rules'
         + all_rules_for_sensor(s): SensorRules
         + silent_sensors: SensorRules[]
 
-    Aggregate 'SensorRules'
+    * Aggregate 'SensorRules'
         + sensor_name
         + value
         + measured_on
@@ -169,28 +165,26 @@ Domain Objects
         - raise_alarm(...)       --> publish 'AlarmRaised'
         - clear_alarm()          --> publish 'AlarmCleared'
 
-    Value 'Rule'
-        + conditions
+    * Value 'Rule'
+        + conditions: Condition[]
         + is_satisfied(): Bool
 
-    Value 'Condition'
+    * Value 'Condition'
         + is_satisfied(): Bool
 
 
-* Subdomain 'Notify'
+* Subdomain 'Notify' (Supporting Subdomain - send out alarm notifications)
 
-    has notification_port
+    * has notification_port
 
-    Application-Service 'Notification'
+    * Application-Service 'Notification'
         + on AlarmRaised => notify
         + on AlarmCleared => notify
 
 
-* Subdomain 'EventStorage' (Supporting Subdomain)
+* Subdomain 'EventStorage' (Supporting Subdomain - save all events in an event store)
 
-    description: save all events in an event store
+    * has message_queue_port
 
-    has message_queue_port
-
-    Application-Service 'Listener'
+    * Application-Service 'Listener'
         on '*' => publish Message to message-Queue

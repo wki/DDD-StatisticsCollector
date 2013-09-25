@@ -7,12 +7,12 @@ use ok 'StatisticsCollector::Domain::Measurement::SensorInfo';
 note 'coercion';
 {
     my $i = StatisticsCollector::Domain::Measurement::SensorInfo->new(
-        name   => 'a/b/c',
-        result => -100,
+        sensor      => 'a/b/c',
+        measurement => -100,
     );
     
-    is $i->name->name, 'a/b/c', 'name converted';
-    is $i->result->result, -100, 'result converted';
+    is $i->sensor->name,        'a/b/c', 'name converted';
+    is $i->measurement->result, -100,    'result converted';
 }
 
 done_testing;
