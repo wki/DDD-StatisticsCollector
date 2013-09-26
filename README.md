@@ -76,11 +76,11 @@ Domain Objects
 
 * COMMON things (used across multiple subdomains)
 
-    * Value 'SensorName' / Moose Type 'T_SensorName'
+    * Value 'SensorName' / Moose Type 'SensorName'
         + name
         + matches_mask(...)
 
-    * Value 'MeasurementResult' / Moose Type 'T_MeasurementResult'
+    * Value 'MeasurementResult' / Moose Type 'MeasurementResult'
         + measured_on
         + result
 
@@ -93,7 +93,7 @@ Domain Objects
 
 * Subdomain 'Measurement' (Core Domain - handle measurement results)
 
-    * Event 'MeasureResultProvided'
+    * Event 'MeasurementResultProvided'
 
     * Application-Service 'MeasureService'
         + provide_result(sensor_name, result)

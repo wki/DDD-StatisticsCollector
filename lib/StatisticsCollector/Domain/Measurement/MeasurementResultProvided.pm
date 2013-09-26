@@ -1,4 +1,4 @@
-package StatisticsCollector::Domain::Measurement::MeasureResultProvided;
+package StatisticsCollector::Domain::Measurement::MeasurementResultProvided;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
 use namespace::autoclean;
@@ -7,7 +7,7 @@ extends 'DDD::Event';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::MeasureResultProvided - is published
+StatisticsCollector::Domain::Measurement::MeasurementResultProvided - is published
 when a MeasureResult has been provided
 
 =head1 SYNOPSIS
@@ -24,7 +24,7 @@ when a MeasureResult has been provided
 
 has measurement => (
     is       => 'ro',
-    isa      => 'T_MeasurementResult',
+    isa      => 'MeasurementResult',
     coerce   => 1,
     required => 1,
 );

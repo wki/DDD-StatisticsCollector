@@ -47,7 +47,7 @@ note 'type_constraint';
         use Moose;
         has m => (
             is     => 'rw',
-            isa    => 'T_MeasurementResult',
+            isa    => 'MeasurementResult',
             coerce => 1,
         );
     }

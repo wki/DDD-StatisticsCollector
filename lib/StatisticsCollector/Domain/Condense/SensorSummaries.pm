@@ -1,6 +1,6 @@
 package StatisticsCollector::Domain::Condense::SensorSummaries;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Measurement::MeasureResultProvided';
+use aliased 'StatisticsCollector::Domain::Measurement::MeasurementResultProvided';
 use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
 use aliased 'StatisticsCollector::Domain::Common::Summary';
 use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';

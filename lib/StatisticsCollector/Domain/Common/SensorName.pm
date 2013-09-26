@@ -17,14 +17,14 @@ StatisticsCollector::Domain::Common::SensorName - Sensor name value object
 
 =cut
 
-=head2 T_SensorName
+=head2 SensorName
 
 =cut
 
-class_type 'T_SensorName',
+class_type 'SensorName',
     { class => __PACKAGE__ };
 
-coerce 'T_SensorName',
+coerce 'SensorName',
     from 'Str',
     via { __PACKAGE__->new( name => $_ ) };
 

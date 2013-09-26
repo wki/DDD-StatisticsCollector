@@ -18,14 +18,14 @@ StatisticsCollector::Domain::Common::MeasurementResult - a measured value
 
 =cut
 
-=head2 T_MeasurementResult
+=head2 MeasurementResult
 
 =cut
 
-class_type 'T_MeasurementResult',
+class_type 'MeasurementResult',
     { class => __PACKAGE__ };
 
-coerce 'T_MeasurementResult',
+coerce 'MeasurementResult',
     from 'Int',
     via { __PACKAGE__->new( result => $_ ) };
 

@@ -84,7 +84,7 @@ sub append_result {
     
     die "Result (${\$result->measured_on->dmy} ${\$result->measured_on->hms}) "
         . "is out of range (${\$self->from->dmy} ${\$self->from->hms} - ${\$self->to->hms})"
-        if !$self->range_matches($result);
+        if !$self->range_matches($result->measured_on);
     
     return __PACKAGE__->new(
         from => $self->from,

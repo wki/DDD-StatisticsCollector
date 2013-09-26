@@ -35,7 +35,7 @@ note 'type constraint';
         use Moose;
         has n => (
             is     => 'rw',
-            isa    => 'T_SensorName',
+            isa    => 'SensorName',
             coerce => 1,
         );
     }

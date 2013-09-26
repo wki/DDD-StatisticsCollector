@@ -14,7 +14,7 @@ has cleared_on => (
 
 has sensor => (
     is       => 'ro',
-    isa      => 'T_SensorName',
+    isa      => 'SensorName',
     coerce   => 1,
     required => 1,
 );

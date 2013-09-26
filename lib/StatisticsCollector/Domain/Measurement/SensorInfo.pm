@@ -22,14 +22,14 @@ measure result and an alarm info of a sensor
 
 has sensor => (
     is       => 'ro',
-    isa      => 'T_SensorName',
+    isa      => 'SensorName',
     coerce   => 1,
     required => 1,
 );
 
 has measurement => (
     is       => 'ro',
-    isa      => 'T_MeasurementResult',
+    isa      => 'MeasurementResult',
     coerce   => 1,
     required => 1,
 );

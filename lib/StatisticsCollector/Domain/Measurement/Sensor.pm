@@ -1,6 +1,6 @@
 package StatisticsCollector::Domain::Measurement::Sensor;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Measurement::MeasureResultProvided';
+use aliased 'StatisticsCollector::Domain::Measurement::MeasurementResultProvided';
 use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
 use aliased 'StatisticsCollector::Domain::Common::Summary';
 use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
@@ -79,7 +79,7 @@ sub provide_result {
         alarm_info  => $self->info->alarm_info,
     );
     $self->info($info);
-    $self->publish( MeasureResultProvided->new( measurement => $measurement ) );
+    $self->publish( MeasurementResultProvided->new( measurement => $measurement ) );
 }
 
 __PACKAGE__->meta->make_immutable;
