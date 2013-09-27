@@ -19,10 +19,10 @@ use Test::Exception;
     has info => (is => 'rw', isa => 'I');
 }
 
-use ok 'StatisticsCollector::Domain::Measurement::Sensors::Memory';
+use ok 'StatisticsCollector::Domain::Measurement::AllSensors::Memory';
 
 my $d = D->new;
-my $s = StatisticsCollector::Domain::Measurement::Sensors::Memory->new(domain => $d);
+my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(domain => $d);
 
 my $s_xyz = S->new(domain => $d, info => I->new(name => 'x/y/z'));
 my $s_abc = S->new(domain => $d, info => I->new(name => 'a/b/c'));
@@ -35,7 +35,7 @@ note 'retrieve list';
     my $result = $s->sensor_info;
     is_deeply $result, [], 'no sensors read (scalar)';
     
-    %StatisticsCollector::Domain::Measurement::Sensors::Memory::sensor_for = (
+    %StatisticsCollector::Domain::Measurement::AllSensors::Memory::sensor_for = (
         'a/b/c' => $s_abc,
         'x/y/z' => $s_xyz,
     );

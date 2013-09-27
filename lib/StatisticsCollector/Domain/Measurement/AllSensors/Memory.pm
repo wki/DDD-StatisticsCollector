@@ -1,14 +1,14 @@
-package StatisticsCollector::Domain::Measurement::Sensors::Memory;
+package StatisticsCollector::Domain::Measurement::AllSensors::Memory;
 use Moose;
 use namespace::autoclean;
 
-extends 'StatisticsCollector::Domain::Measurement::Sensors';
+extends 'StatisticsCollector::Domain::Measurement::AllSensors';
 
 our %sensor_for; # sensor_name => sensor aggregate
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::Sensors::Memory - in-memory
+StatisticsCollector::Domain::Measurement::AllSensors::Memory - in-memory
 implementation of a sensors repository
 
 =head1 SYNOPSIS

@@ -52,7 +52,7 @@ the core comain -- handles the raw measurement results provided by sensors
 =cut
 
 subdomain measurement => (
-    isa => 'StatisticsCollector::Domain::Measurement',
+    isa => 'Measurement',
     dependencies => {
     },
 );
@@ -65,7 +65,7 @@ like hourly or daily periods
 =cut
 
 subdomain condense => (
-    isa => 'StatisticsCollector::Domain::Condense',
+    isa => 'Condense',
     dependencies => {
     },
 );
@@ -77,7 +77,7 @@ cares about discovery and clearing of alarm situations
 =cut
 
 subdomain alarm => (
-    isa => 'StatisticsCollector::Domain::Alarm',
+    isa => 'Alarm',
     dependencies => {
     },
 );

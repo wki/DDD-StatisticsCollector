@@ -1,4 +1,4 @@
-package StatisticsCollector::Domain::Measurement::Sensors;
+package StatisticsCollector::Domain::Measurement::AllSensors;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ extends 'DDD::Repository';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::Sensors - abstract base class
+StatisticsCollector::Domain::Measurement::AllSensors - abstract base class
 representing the sensors repository
 
 =head1 SYNOPSIS

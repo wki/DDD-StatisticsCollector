@@ -10,10 +10,10 @@ use Test::Exception;
     extends 'DDD::Base::Domain';
 }
 
-use ok 'StatisticsCollector::Domain::Measurement::Sensors';
+use ok 'StatisticsCollector::Domain::Measurement::AllSensors';
 
 my $d = D->new;
-my $s = StatisticsCollector::Domain::Measurement::Sensors->new(domain => $d);
+my $s = StatisticsCollector::Domain::Measurement::AllSensors->new(domain => $d);
 
 dies_ok { $s->sensor_info } 'sensor_info dies';
 dies_ok { $s->sensor_by_name } 'sensor_by_name dies';
