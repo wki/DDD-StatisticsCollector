@@ -4,6 +4,7 @@ use DDD::EventPublisher;
 use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
 use Test::More;
 use Test::Exception;
+use Test::MockDateTime;
 
 {
     package D;              # Mock Domain
@@ -27,17 +28,7 @@ my $s = StatisticsCollector::Domain::Measurement::Sensor->new(
 );
 
 note 'provide';
-{
-    my $dt = DateTime->new(
-        year  => 2012,   hour   => 23,
-        month => 12,     minute => 13,
-        day   => 10,     second => 45,
-        time_zone => 'local',
-    );
-    no warnings 'redefine';
-    local *DateTime::now = sub { $dt->clone };
-    use warnings 'redefine';
-    
+on '2012-12-10 23:13:45' => sub {
     is $s->event_publisher->_nr_events, 0, 'no events yet';
     
     $s->provide_result(50);
@@ -46,6 +37,6 @@ note 'provide';
     is $s->info->measurement->result, 50, 'measurement result saved';
 
     is $s->event_publisher->_nr_events, 1, 'one event waiting';
-}
+};
 
 done_testing;

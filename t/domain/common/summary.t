@@ -3,6 +3,7 @@ use warnings;
 use DateTime;
 use Test::More;
 use Test::Exception;
+use Test::MockDateTime;
 
 use ok 'StatisticsCollector::Domain::Common::MeasurementResult';
 use ok 'StatisticsCollector::Domain::Common::Summary';
@@ -14,17 +15,7 @@ our $summary = 'StatisticsCollector::Domain::Common::Summary';
 # TODO
 
 note 'succeeding construction';
-{
-    my $dt = DateTime->new(
-        year  => 2012,   hour   => 21,
-        month => 12,     minute => 13,
-        day   => 10,     second => 45,
-        time_zone => 'local',
-    );
-    no warnings 'redefine';
-    local *DateTime::now = sub { $dt->clone };
-    use warnings 'redefine';
-
+on '2012-12-10 21:13:45' => sub {
     my $r1 = $result->new(result => 10);
     my $r2 = $result->new(result => 20);
     
@@ -55,6 +46,6 @@ note 'succeeding construction';
     is $s2->max, 20, 'max is 20';
     is $s2->sum, 30, 'sum is 30';
     is $s2->nr_values, 2, 'nr_values is 2';
-}
+};
 
 done_testing;

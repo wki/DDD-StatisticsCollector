@@ -3,6 +3,7 @@ use warnings;
 use DateTime;
 use Test::More;
 use Test::Exception;
+use Test::MockDateTime;
 
 use ok 'StatisticsCollector::Domain::Common::MeasurementResult';
 
@@ -18,27 +19,21 @@ note 'failing construction';
 }
 
 note 'succeeding construction';
-{
-    my $dt = DateTime->new(
-        year  => 2012,   hour   => 23,
-        month => 12,     minute => 13,
-        day   => 10,     second => 45,
-        time_zone => 'local',
-    );
-    no warnings 'redefine';
-    local *DateTime::now = sub { $dt->clone };
-    use warnings 'redefine';
-    
+on '2012-12-10 23:13:45' => sub {
     my $c = $class->new(result => 42);
     
-    is +DateTime->compare($c->measured_on, $dt),
-        0,
-        'measure timestamp is equal';
+    is $c->measured_on->ymd,
+        '2012-12-10',
+        'measure date';
+
+    is $c->measured_on->hms,
+        '23:13:45',
+        'measure time';
     
     is $c->result,
         42,
         'result is 42';
-}
+};
 
 note 'type_constraint';
 {
