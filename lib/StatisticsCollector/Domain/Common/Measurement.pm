@@ -1,4 +1,4 @@
-package StatisticsCollector::Domain::Common::MeasurementResult;
+package StatisticsCollector::Domain::Common::Measurement;
 use Moose;
 use Moose::Util::TypeConstraints;
 use DateTime;
@@ -8,7 +8,7 @@ extends 'DDD::Value';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Common::MeasurementResult - a measured value
+StatisticsCollector::Domain::Common::Measurement - a measured value
 
 =head1 SYNOPSIS
 
@@ -18,14 +18,14 @@ StatisticsCollector::Domain::Common::MeasurementResult - a measured value
 
 =cut
 
-=head2 MeasurementResult
+=head2 Measurement
 
 =cut
 
-class_type 'MeasurementResult',
+class_type 'Measurement',
     { class => __PACKAGE__ };
 
-coerce 'MeasurementResult',
+coerce 'Measurement',
     from 'Int',
     via { __PACKAGE__->new( result => $_ ) };
 

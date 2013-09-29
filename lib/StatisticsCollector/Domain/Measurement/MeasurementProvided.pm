@@ -1,13 +1,13 @@
-package StatisticsCollector::Domain::Measurement::MeasurementResultProvided;
+package StatisticsCollector::Domain::Measurement::MeasurementProvided;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
+use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use namespace::autoclean;
 
 extends 'DDD::Event';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::MeasurementResultProvided - is published
+StatisticsCollector::Domain::Measurement::MeasurementProvided - is published
 when a MeasureResult has been provided
 
 =head1 SYNOPSIS
@@ -20,13 +20,13 @@ when a MeasureResult has been provided
 
 =head2 measurement
 
-TODO: does renaming to measurement_result make sense?
+TODO: does renaming to measurement make sense?
 
 =cut
 
 has measurement => (
     is       => 'ro',
-    isa      => 'MeasurementResult',
+    isa      => 'Measurement',
     coerce   => 1,
     required => 1,
 );

@@ -5,10 +5,10 @@ use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Common::MeasurementResult';
+use ok 'StatisticsCollector::Domain::Common::Measurement';
 use ok 'StatisticsCollector::Domain::Common::Summary';
 
-our $result  = 'StatisticsCollector::Domain::Common::MeasurementResult';
+our $result  = 'StatisticsCollector::Domain::Common::Measurement';
 our $summary = 'StatisticsCollector::Domain::Common::Summary';
 
 # note 'failing construction';
@@ -19,7 +19,7 @@ on '2012-12-10 21:13:45' => sub {
     my $r1 = $result->new(result => 10);
     my $r2 = $result->new(result => 20);
     
-    my $s1 = $summary->from_measurement_result($r1);
+    my $s1 = $summary->from_measurement($r1);
     is $s1->from->hms,
         '21:00:00',
         's1: from time is truncated';

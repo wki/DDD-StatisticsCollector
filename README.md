@@ -80,7 +80,7 @@ Domain Objects
         + name
         + matches_mask(...)
 
-    * Value 'MeasurementResult' / Moose Type 'MeasurementResult'
+    * Value 'Measurement' / Moose Type 'Measurement'
         + measured_on
         + result
 
@@ -93,7 +93,7 @@ Domain Objects
 
 * Subdomain 'Measurement' (Core Domain - handle measurement results)
 
-    * Event 'MeasurementResultProvided'
+    * Event 'MeasurementProvided'
 
     * Application-Service 'MeasureService'
         + provide_result(sensor_name, result)

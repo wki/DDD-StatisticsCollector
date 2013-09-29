@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Measurement::SensorInfo;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::SensorName';
-use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
+use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use aliased 'StatisticsCollector::Domain::Measurement::AlarmInfo';
 use namespace::autoclean;
 
@@ -27,9 +27,9 @@ has sensor => (
     required => 1,
 );
 
-has measurement_result => (
+has measurement => (
     is       => 'ro',
-    isa      => 'MeasurementResult',
+    isa      => 'Measurement',
     coerce   => 1,
     required => 1,
 );
@@ -44,20 +44,20 @@ has alarm_info => (
 
 =cut
 
-=head2 new_measurement_result ( $result_or_value )
+=head2 new_measurement ( $result_or_value )
 
 factory method returning a new SensorInfo object with a new measurement result
 
 =cut
 
-sub new_measurement_result {
+sub new_measurement {
     my ($self, $result_or_value) = @_;
     
-    my $measurement_result = MeasurementResult->new(result => $result_or_value);
+    my $measurement = Measurement->new(result => $result_or_value);
     
     return __PACKAGE__->new(
         sensor             => $self->sensor,
-        measurement_result => $measurement_result,
+        measurement => $measurement,
         ($self->has_alarm_info
             ? (alarm_info  =>  $self->alarm_info)
             : ()),

@@ -48,13 +48,13 @@ sub range_matches {
 }
 
 
-=head2 from_measurement_result
+=head2 from_measurement
 
 Factory method: constructs a new summary value from a measurement result
 
 =cut
 
-sub from_measurement_result {
+sub from_measurement {
     my ($class, $result, $truncate) = @_;
     
     $truncate //= 'hour';

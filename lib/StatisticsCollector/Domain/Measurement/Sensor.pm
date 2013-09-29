@@ -1,9 +1,9 @@
 package StatisticsCollector::Domain::Measurement::Sensor;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Measurement::MeasurementResultProvided';
+use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
 use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
 use aliased 'StatisticsCollector::Domain::Common::Summary';
-use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
+use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use namespace::autoclean;
 
 extends 'DDD::Aggregate';
@@ -61,17 +61,17 @@ has daily_results => (
 =head2 provide_result ( $result )
 
 save the result provided by a sensor. $result may be either an integer value
-or a MeasurementResult object.
+or a Measurement object.
 
 =cut
 
 sub provide_result {
     my ( $self, $result_or_value ) = @_;
 
-    $self->info($self->info->new_measurement_result($result_or_value));
+    $self->info($self->info->new_measurement($result_or_value));
     $self->publish(
-        MeasurementResultProvided->new(
-            measurement => $self->info->measurement_result
+        MeasurementProvided->new(
+            measurement => $self->info->measurement
         )
     );
 }

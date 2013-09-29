@@ -1,9 +1,9 @@
 package StatisticsCollector::Domain::Condense::SensorSummaries;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Measurement::MeasurementResultProvided';
+use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
 use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
 use aliased 'StatisticsCollector::Domain::Common::Summary';
-use aliased 'StatisticsCollector::Domain::Common::MeasurementResult';
+use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use namespace::autoclean;
 
 extends 'DDD::Aggregate';
@@ -51,7 +51,7 @@ sub _append_to {
             $latest_summary->append_result($result);
     } else {
         push @{$self->$accessor},
-            Summary->from_measurement_result($result, $interval);
+            Summary->from_measurement($result, $interval);
     }
 }
 

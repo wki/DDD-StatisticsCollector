@@ -5,9 +5,9 @@ use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Common::MeasurementResult';
+use ok 'StatisticsCollector::Domain::Common::Measurement';
 
-our $class = 'StatisticsCollector::Domain::Common::MeasurementResult';
+our $class = 'StatisticsCollector::Domain::Common::Measurement';
 
 note 'failing construction';
 {
@@ -42,7 +42,7 @@ note 'type_constraint';
         use Moose;
         has m => (
             is     => 'rw',
-            isa    => 'MeasurementResult',
+            isa    => 'Measurement',
             coerce => 1,
         );
     }
