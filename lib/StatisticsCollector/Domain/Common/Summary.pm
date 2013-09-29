@@ -19,14 +19,14 @@ StatisticsCollector::Domain::Common::Summary - condensed values
 =cut
 
 has [qw(from to)] => (
-    is => 'ro',
-    isa => 'DateTime',
+    is       => 'ro',
+    isa      => 'DateTime',
     required => 1,
 );
 
 has [qw(min max sum nr_values)] => (
-    is => 'ro',
-    isa => 'Int',
+    is       => 'ro',
+    isa      => 'Int',
     required => 1,
 );
 
