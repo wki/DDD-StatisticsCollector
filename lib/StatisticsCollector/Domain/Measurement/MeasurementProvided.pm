@@ -20,8 +20,6 @@ when a MeasureResult has been provided
 
 =head2 measurement
 
-TODO: does renaming to measurement make sense?
-
 =cut
 
 has measurement => (
