@@ -23,9 +23,9 @@ about a possible alarm
 =cut
 
 has raised_on => (
-    is  => 'ro',
-    isa => 'DateTime',
-    default => sub { DateTime->now(time_zone => 'local') },
+    is      => 'ro',
+    isa     => 'DateTime',
+    default => sub { DateTime->now( time_zone => 'local' ) },
 );
 
 =head2 name

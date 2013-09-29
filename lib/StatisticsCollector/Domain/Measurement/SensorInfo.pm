@@ -27,7 +27,7 @@ has sensor => (
     required => 1,
 );
 
-has measurement => (
+has measurement_result => (
     is       => 'ro',
     isa      => 'MeasurementResult',
     coerce   => 1,
@@ -35,14 +35,36 @@ has measurement => (
 );
 
 has alarm_info => (
-    is      => 'ro',
-    isa     => AlarmInfo,
-    default => sub { AlarmInfo->new },
+    is        => 'ro',
+    isa       => AlarmInfo,
+    predicate => 'has_alarm_info',
 );
 
 =head1 METHODS
 
 =cut
+
+=head2 new_measurement_result ( $result_or_value )
+
+factory method returning a new SensorInfo object with a new measurement result
+
+=cut
+
+sub new_measurement_result {
+    my ($self, $result_or_value) = @_;
+    
+    my $measurement_result = MeasurementResult->new(result => $result_or_value);
+    
+    return __PACKAGE__->new(
+        sensor             => $self->sensor,
+        measurement_result => $measurement_result,
+        ($self->has_alarm_info
+            ? (alarm_info  =>  $self->alarm_info)
+            : ()),
+    );
+}
+
+### can we have "with_alarm($message)" / without_alarm() factory methods here?
 
 __PACKAGE__->meta->make_immutable;
 1;

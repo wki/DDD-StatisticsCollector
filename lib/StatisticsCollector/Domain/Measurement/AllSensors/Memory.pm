@@ -25,29 +25,30 @@ only valid for a single process
 
 =cut
 
-=head2 sensor_info ( $filter )
+=head2 filtered ( $filter )
 
-retrieves a list or hashref containing 
+retrieves a list or hashref containing (TODO: specify filter)
+
 =cut
 
-sub sensor_info {
+sub filtered {
     my ($self, $filter) = @_;
     
-    my @sensor_info =
+    my @filtered =
         map { $_->info }
         # grep { ... } # TODO: define filter
         values %sensor_for;
     
-    return wantarray ? @sensor_info : \@sensor_info;
+    return wantarray ? @filtered : \@filtered;
 }
 
-=head2 sensor_by_name ( $sensor_name )
+=head2 by_name ( $sensor_name )
 
 retrieves a sensor aggregate by its name
 
 =cut
 
-sub sensor_by_name {
+sub by_name {
     my ($self, $sensor_name) = @_;
 
     return $sensor_for{$sensor_name};

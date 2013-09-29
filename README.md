@@ -101,8 +101,8 @@ Domain Objects
         + condensed_values(sensor_name, n hours/days): Summary[]
 
     * Repository 'AllSensors'
-        + sensor_info(filter): SensorInfo[]
-        + sensor_by_name(sensor_name): Sensor
+        + filtered(filter): SensorInfo[]
+        + by_name(sensor_name): Sensor
         + save(sensor)
 
     * Value 'SensorInfo'

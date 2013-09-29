@@ -68,18 +68,12 @@ or a MeasurementResult object.
 sub provide_result {
     my ( $self, $result_or_value ) = @_;
 
-    my $measurement = MeasurementResult->new(result => $result_or_value);
-    
-    ### FIXME: schwerfällig
-    # besser? $self->info( $self->info->new_result($result_or_value) )
-    
-    my $info = SensorInfo->new(
-        sensor      => $self->info->sensor,
-        measurement => $measurement,
-        alarm_info  => $self->info->alarm_info,
+    $self->info($self->info->new_measurement_result($result_or_value));
+    $self->publish(
+        MeasurementResultProvided->new(
+            measurement => $self->info->measurement_result
+        )
     );
-    $self->info($info);
-    $self->publish( MeasurementResultProvided->new( measurement => $measurement ) );
 }
 
 __PACKAGE__->meta->make_immutable;

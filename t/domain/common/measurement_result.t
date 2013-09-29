@@ -18,7 +18,7 @@ note 'failing construction';
         'non-numeric result dies';
 }
 
-note 'succeeding construction';
+note 'succeessful construction';
 on '2012-12-10 23:13:45' => sub {
     my $c = $class->new(result => 42);
     

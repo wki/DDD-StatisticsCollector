@@ -20,6 +20,8 @@ when a MeasureResult has been provided
 
 =head2 measurement
 
+TODO: does renaming to measurement_result make sense?
+
 =cut
 
 has measurement => (

@@ -29,10 +29,10 @@ my $s_abc = S->new(domain => $d, info => I->new(name => 'a/b/c'));
 
 note 'retrieve list';
 {
-    my @result = $s->sensor_info;
+    my @result = $s->filtered;
     is scalar @result, 0, 'no sensors read (list)';
     
-    my $result = $s->sensor_info;
+    my $result = $s->filtered;
     is_deeply $result, [], 'no sensors read (scalar)';
     
     %StatisticsCollector::Domain::Measurement::AllSensors::Memory::sensor_for = (
@@ -40,20 +40,20 @@ note 'retrieve list';
         'x/y/z' => $s_xyz,
     );
 
-    @result = $s->sensor_info;
+    @result = $s->filtered;
     is scalar @result, 2, '2 sensors read (list)';
     
-    $result = $s->sensor_info;
+    $result = $s->filtered;
     is_deeply scalar @$result, 2, '2 sensors read (scalar)';
 }
 
 note 'retrieve single';
 {
-    is $s->sensor_by_name('u/v/w'),
+    is $s->by_name('u/v/w'),
         undef,
         'unknown sensor yields undef';
     
-    is $s->sensor_by_name('a/b/c'),
+    is $s->by_name('a/b/c'),
         $s_abc,
         'a/b/c retrieved';
 }
@@ -63,7 +63,7 @@ note 'save';
     my $s_uvw = S->new(domain => $d, info => I->new(name => 'u/v/w'));
     
     $s->save($s_uvw);
-    is $s->sensor_by_name('u/v/w'),
+    is $s->by_name('u/v/w'),
         $s_uvw,
         'u/v/w saved';
 }

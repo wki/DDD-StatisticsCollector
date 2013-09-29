@@ -13,6 +13,10 @@ representing the sensors repository
 
 =head1 DESCRIPTION
 
+ all_sensors.by_name($name)
+ all_sensors.save($sensor)
+
+
 =head1 ATTRIBUTES
 
 =cut
@@ -21,11 +25,15 @@ representing the sensors repository
 
 =cut
 
-=head2 sensor_info ( $filter )
+=head2 filtered ( $filter )
+
+returns a list of L<SensorInfo> objects matched by a given filter.
+
+TODO: filter is still to be defined.
 
 =cut
 
-sub sensor_info {
+sub filtered {
     my ($self, $filter) = @_;
     
     die 'abstract class';
@@ -33,11 +41,14 @@ sub sensor_info {
     # must return SensorInfo[]
 }
 
-=head2 sensor_by_name ( $sensor_name )
+=head2 by_name ( $sensor_name )
+
+give back a senor uniquely identified by a given name. If no sensor can be
+found with the requested name, C<undef> is returned
 
 =cut
 
-sub sensor_by_name {
+sub by_name {
     my ($self, $sensor_name) = @_;
 
     die 'abstract class';
@@ -46,6 +57,8 @@ sub sensor_by_name {
 }
 
 =head2 save ( $sensor )
+
+writes a sensor to its storage
 
 =cut
 
