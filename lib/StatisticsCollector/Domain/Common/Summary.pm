@@ -64,11 +64,11 @@ sub from_measurement {
     my $value = $result->result;
     
     return $class->new(
-        from => $from,
-        to   => $to,
-        min  => $value,
-        max  => $value,
-        sum  => $value,
+        from      => $from,
+        to        => $to,
+        min       => $value,
+        max       => $value,
+        sum       => $value,
         nr_values => 1,
     );
 }
@@ -87,11 +87,11 @@ sub append_result {
         if !$self->range_matches($result->measured_on);
     
     return __PACKAGE__->new(
-        from => $self->from,
-        to   => $self->to,
-        min  => min($self->min, $result->result),
-        max  => max($self->max, $result->result),
-        sum  => $self->sum + $result->result,
+        from      => $self->from,
+        to        => $self->to,
+        min       => min($self->min, $result->result),
+        max       => max($self->max, $result->result),
+        sum       => $self->sum + $result->result,
         nr_values => $self->nr_values + 1,
     );
 }
