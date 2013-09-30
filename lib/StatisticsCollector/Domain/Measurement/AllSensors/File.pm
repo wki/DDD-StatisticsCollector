@@ -1,25 +1,38 @@
-package StatisticsCollector::Domain::Measurement::AllSensors::Memory;
+package StatisticsCollector::Domain::Measurement::AllSensors::File;
 use Moose;
+use MooseX::Types::Path::Class 'Dir';
+use aliased 'StatisticsCollector::Domain::Measurement::Sensor';
 use namespace::autoclean;
 
 extends 'StatisticsCollector::Domain::Measurement::AllSensors';
 
-our %sensor_for; # sensor_name => sensor aggregate
-
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::AllSensors::Memory - in-memory
+StatisticsCollector::Domain::Measurement::AllSensors::File - file
 implementation of a sensors repository
 
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
 
-only valid for a single process
-
 =head1 ATTRIBUTES
 
 =cut
+
+=head2 dir
+
+a directory where all sensor files are saved to. The path for a sensor file
+will get obtained by its name. A sensor named "a/b/c" will be saved in a file
+named "a-b-c.json"
+
+=cut
+
+has dir => (
+    is       => 'ro',
+    isa      => Dir,
+    coerce   => 1,
+    required => 1,
+);
 
 =head1 METHODS
 
@@ -34,10 +47,8 @@ returns a list of L<SensorInfo> objects matched by a given filter.
 sub filtered {
     my ($self, $filter) = @_;
     
-    my @filtered =
-        map { $_->info }
-        # grep { ... } # TODO: define filter
-        values %sensor_for;
+    # TODO
+    my @filtered;
     
     return wantarray ? @filtered : \@filtered;
 }
@@ -52,7 +63,7 @@ found with the requested name, C<undef> is returned
 sub by_name {
     my ($self, $sensor_name) = @_;
 
-    return $sensor_for{$sensor_name};
+    return Sensor->load($self->_file($sensor_name));
 }
 
 =head2 save ( $sensor )
@@ -64,8 +75,23 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    my $name = $sensor->info->name;
-    $sensor_for{$name} = $sensor;
+    $self->store($self->_file($sensor->info->sensor));
+}
+
+# convert sensor_name to file_name
+sub _file_name {
+    my ($self, $sensor_name) = @_;
+    
+    $sensor_name =~ s{/}{.}xmsg;
+    
+    return "$sensor_name.json";
+}
+
+# concvert sensor_name to a file object
+sub _file {
+    my ($self, $sensor_name) = @_;
+    
+    return $self->dir->file($self->_file_name($sensor_name));
 }
 
 __PACKAGE__->meta->make_immutable;

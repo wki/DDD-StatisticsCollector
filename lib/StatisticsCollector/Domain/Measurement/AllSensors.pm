@@ -11,11 +11,18 @@ representing the sensors repository
 
 =head1 SYNOPSIS
 
+    # assume that $all_sensors is an instance of a AllSensors class
+    
+    # get a filtered list of SensorInfo objects
+    my @sensor_infos = $all_sensors->filtered($filter);
+    
+    # retrieve a single sensor aggregate
+    my $sensor = $all_sensors->by_name('rio/bathroom/temperature');
+    
+    # save back a sensor aggregate
+    $all_sensors->save($sensor);
+
 =head1 DESCRIPTION
-
- all_sensors.by_name($name)
- all_sensors.save($sensor)
-
 
 =head1 ATTRIBUTES
 

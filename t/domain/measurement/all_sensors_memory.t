@@ -1,31 +1,21 @@
 use strict;
 use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use MockDomain;
+use MockSensorInfo;
+use MockSensor;
+
 use Test::More;
 use Test::Exception;
 
-{
-    package D;              # Mock domain
-    use Moose;
-    extends 'DDD::Base::Domain';
-    
-    package I;              # Mock SensorInfo
-    use Moose;
-    extends 'DDD::Value';
-    has name => (is => 'ro', isa => 'Str');
-    
-    package S;              # Mock Sensor
-    use Moose;
-    extends 'DDD::Aggregate';
-    has info => (is => 'rw', isa => 'I');
-}
-
 use ok 'StatisticsCollector::Domain::Measurement::AllSensors::Memory';
 
-my $d = D->new;
+my $d = MockDomain->new;
 my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(domain => $d);
 
-my $s_xyz = S->new(domain => $d, info => I->new(name => 'x/y/z'));
-my $s_abc = S->new(domain => $d, info => I->new(name => 'a/b/c'));
+my $s_xyz = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'x/y/z'));
+my $s_abc = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'a/b/c'));
 
 note 'retrieve list';
 {
@@ -60,7 +50,7 @@ note 'retrieve single';
 
 note 'save';
 {
-    my $s_uvw = S->new(domain => $d, info => I->new(name => 'u/v/w'));
+    my $s_uvw = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'u/v/w'));
     
     $s->save($s_uvw);
     is $s->by_name('u/v/w'),
