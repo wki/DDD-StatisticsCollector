@@ -28,6 +28,7 @@ named "a-b-c.json"
 =cut
 
 has dir => (
+    traits   => [ 'DoNotSerialize' ],
     is       => 'ro',
     isa      => Dir,
     coerce   => 1,
@@ -63,7 +64,8 @@ found with the requested name, C<undef> is returned
 sub by_name {
     my ($self, $sensor_name) = @_;
 
-    return Sensor->load($self->_file($sensor_name));
+    # load dies: 'domain' is required
+    return Sensor->load($self->_file($sensor_name)->stringify);
 }
 
 =head2 save ( $sensor )
@@ -75,7 +77,7 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    $self->store($self->_file($sensor->info->sensor));
+    $sensor->store($self->_file($sensor->info->sensor)->stringify);
 }
 
 # convert sensor_name to file_name

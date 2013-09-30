@@ -14,8 +14,8 @@ use ok 'StatisticsCollector::Domain::Measurement::AllSensors::Memory';
 my $d = MockDomain->new;
 my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(domain => $d);
 
-my $s_xyz = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'x/y/z'));
-my $s_abc = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'a/b/c'));
+my $s_xyz = MockSensor->new(domain => $d, info => MockSensorInfo->new(sensor => 'x/y/z'));
+my $s_abc = MockSensor->new(domain => $d, info => MockSensorInfo->new(sensor => 'a/b/c'));
 
 note 'retrieve list';
 {
