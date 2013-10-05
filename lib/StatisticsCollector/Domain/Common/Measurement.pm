@@ -36,7 +36,7 @@ coerce 'Measurement',
 has measured_on => (
     is       => 'ro',
     isa      => 'DateTime',
-    default  => sub { DateTime->now( time_zone => 'local' ) },
+    default  => sub { $_[0]->_now },
 );
 
 has result => (

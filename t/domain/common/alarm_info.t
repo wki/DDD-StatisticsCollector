@@ -1,11 +1,13 @@
 use strict;
 use warnings;
+use vars '$class';
 use Test::More;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Common::AlarmInfo';
+BEGIN { $class = 'StatisticsCollector::Domain::Common::AlarmInfo' }
 
-my $class = 'StatisticsCollector::Domain::Common::AlarmInfo';
+use ok $class;
+
 
 note 'instantiation';
 {

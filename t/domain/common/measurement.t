@@ -1,13 +1,14 @@
 use strict;
 use warnings;
+use vars '$class';
 use DateTime;
 use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Common::Measurement';
+BEGIN { $class = 'StatisticsCollector::Domain::Common::Measurement' }
 
-our $class = 'StatisticsCollector::Domain::Common::Measurement';
+use ok $class;
 
 note 'failing construction';
 {

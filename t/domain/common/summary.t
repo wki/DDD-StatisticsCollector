@@ -1,15 +1,18 @@
 use strict;
 use warnings;
+use vars '$summary', '$result';
 use DateTime;
 use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Common::Measurement';
-use ok 'StatisticsCollector::Domain::Common::Summary';
+BEGIN { 
+    $result  = 'StatisticsCollector::Domain::Common::Measurement';
+    $summary = 'StatisticsCollector::Domain::Common::Summary';
+};
 
-our $result  = 'StatisticsCollector::Domain::Common::Measurement';
-our $summary = 'StatisticsCollector::Domain::Common::Summary';
+use ok $result;
+use ok $summary;
 
 # note 'failing construction';
 # TODO

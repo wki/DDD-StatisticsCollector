@@ -1,11 +1,12 @@
 use strict;
 use warnings;
+use vars '$class';
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Common::SensorName';
+BEGIN { $class = 'StatisticsCollector::Domain::Common::SensorName' }
 
-our $class = 'StatisticsCollector::Domain::Common::SensorName';
+use ok $class;
 
 note 'failing construction';
 {
