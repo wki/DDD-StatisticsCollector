@@ -1,4 +1,4 @@
-package StatisticsCollector::Domain::Measurement::AlarmInfo;
+package StatisticsCollector::Domain::Common::AlarmInfo;
 use Moose;
 use DateTime;
 use namespace::autoclean;
@@ -7,7 +7,7 @@ extends 'DDD::Value';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::AlarmInfo - contains information
+StatisticsCollector::Domain::Common::AlarmInfo - contains information
 about a possible alarm
 
 =head1 SYNOPSIS
@@ -25,7 +25,17 @@ about a possible alarm
 has raised_on => (
     is      => 'ro',
     isa     => 'DateTime',
-    default => sub { DateTime->now( time_zone => 'local' ) },
+    default => sub { $_[0]->_now },
+);
+
+=head2 cleared_on
+
+=cut
+
+has cleared_on => (
+    is        => 'ro',
+    isa       => 'DateTime',
+    predicate => 'is_cleared',
 );
 
 =head2 name
@@ -41,6 +51,22 @@ has name => (
 =head1 METHODS
 
 =cut
+
+=head2 clear
+
+factory method: returns a new AlarmInfo object being cleared
+
+=cut
+
+sub clear {
+    my $self = shift;
+    
+    return __PACKAGE__->new(
+        raised_on  => $self->raised_on,
+        cleared_on => $self->_now,
+        name       => $self->name,
+    );
+}
 
 __PACKAGE__->meta->make_immutable;
 1;
