@@ -14,8 +14,7 @@ BEGIN {
 use ok $result;
 use ok $summary;
 
-# note 'failing construction';
-# TODO
+# TODO: note 'failing construction';
 
 note 'succeeding construction';
 on '2012-12-10 21:13:45' => sub {
@@ -50,5 +49,11 @@ on '2012-12-10 21:13:45' => sub {
     is $s2->sum, 30, 'sum is 30';
     is $s2->nr_values, 2, 'nr_values is 2';
 };
+
+# TODO: test range_matches()
+
+# TODO: test from_measurement()
+
+# TODO: test append_measurement()
 
 done_testing;

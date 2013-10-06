@@ -34,17 +34,17 @@ has [qw(min max sum nr_values)] => (
 
 =cut
 
-=head2 range_matches ( $value )
+=head2 range_matches ( $timestamp )
 
-returns true if a value is in the same range as the summary
+returns true if a timestamp is in the same range as the summary
 
 =cut
 
 sub range_matches {
     my ($self, $value) = @_;
     
-    return DateTime->compare($self->from, $value) <= 0
-        && DateTime->compare($self->to,   $value) > 0;
+    return DateTime->compare($self->from, $timestamp) <= 0
+        && DateTime->compare($self->to,   $timestamp) > 0;
 }
 
 
@@ -73,25 +73,25 @@ sub from_measurement {
     );
 }
 
-=head2 append_result
+=head2 append_measurement
 
 Factory method: constructs a new summary by appending a measurement result
 
 =cut
 
-sub append_result {
-    my ($self, $result) = @_;
+sub append_measurement {
+    my ($self, $measurement) = @_;
     
-    die "Result (${\$result->measured_on->dmy} ${\$result->measured_on->hms}) "
+    die "Result (${\$measurement->measured_on->dmy} ${\$measurement->measured_on->hms}) "
         . "is out of range (${\$self->from->dmy} ${\$self->from->hms} - ${\$self->to->hms})"
-        if !$self->range_matches($result->measured_on);
+        if !$self->range_matches($measurement->measured_on);
     
     return __PACKAGE__->new(
         from      => $self->from,
         to        => $self->to,
-        min       => min($self->min, $result->result),
-        max       => max($self->max, $result->result),
-        sum       => $self->sum + $result->result,
+        min       => min($self->min, $measurement->result),
+        max       => max($self->max, $measurement->result),
+        sum       => $self->sum + $measurement->result,
         nr_values => $self->nr_values + 1,
     );
 }
