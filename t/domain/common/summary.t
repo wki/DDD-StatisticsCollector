@@ -34,7 +34,7 @@ on '2012-12-10 21:13:45' => sub {
     is $s1->sum, 10, 'sum is 10';
     is $s1->nr_values, 1, 'nr_values is 1';
     
-    my $s2 = $s1->append_result($r2);
+    my $s2 = $s1->append_measurement($r2);
     isnt $s1, $s2, 'new value object created';
     
     is $s2->from->hms,
@@ -49,11 +49,5 @@ on '2012-12-10 21:13:45' => sub {
     is $s2->sum, 30, 'sum is 30';
     is $s2->nr_values, 2, 'nr_values is 2';
 };
-
-# TODO: test range_matches()
-
-# TODO: test from_measurement()
-
-# TODO: test append_measurement()
 
 done_testing;

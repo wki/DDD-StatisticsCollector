@@ -77,7 +77,7 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    $sensor->store($self->_file($sensor->info->sensor)->stringify);
+    $sensor->store($self->_file($sensor->sensor_name->name)->stringify);
 }
 
 # convert sensor_name to file_name

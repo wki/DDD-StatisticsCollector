@@ -3,8 +3,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
-use MockSensorInfo;
-use MockSensor;
+use aliased 'StatisticsCollector::Domain::Measurement::Sensor';
 
 use Test::More;
 use Test::Exception;
@@ -12,10 +11,18 @@ use Test::Exception;
 use ok 'StatisticsCollector::Domain::Measurement::AllSensors::Memory';
 
 my $d = MockDomain->new;
-my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(domain => $d);
+my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(
+    domain => $d,
+);
 
-my $s_xyz = MockSensor->new(domain => $d, info => MockSensorInfo->new(sensor => 'x/y/z'));
-my $s_abc = MockSensor->new(domain => $d, info => MockSensorInfo->new(sensor => 'a/b/c'));
+my $s_xyz = Sensor->new(
+    sensor_name        => 'x/y/z',
+    latest_measurement => 42,
+);
+my $s_abc = Sensor->new(
+    sensor_name        => 'a/b/c',
+    latest_measurement => 13,
+);
 
 note 'retrieve list';
 {
@@ -50,7 +57,10 @@ note 'retrieve single';
 
 note 'save';
 {
-    my $s_uvw = MockSensor->new(domain => $d, info => MockSensorInfo->new(name => 'u/v/w'));
+    my $s_uvw = Sensor->new(
+        sensor_name        => 'u/v/w',
+        latest_measurement => -42,
+    );
     
     $s->save($s_uvw);
     is $s->by_name('u/v/w'),

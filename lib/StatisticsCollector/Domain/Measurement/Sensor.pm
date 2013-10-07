@@ -1,9 +1,10 @@
 package StatisticsCollector::Domain::Measurement::Sensor;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
-use aliased 'StatisticsCollector::Domain::Measurement::SensorInfo';
-use aliased 'StatisticsCollector::Domain::Common::Summary';
+use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
+use aliased 'StatisticsCollector::Domain::Common::SensorName';
+
 use namespace::autoclean;
 
 extends 'DDD::Aggregate';
@@ -21,57 +22,65 @@ a sensor
 
 =cut
 
-=head2 info
+=head2 sensor_name
 
-contains a SensorInfo value object with the latest measure result and possibly
-an alarm
+holds the sensor's name as a tree-part string delimited with slashes like
+C<<< a/b/c >>>
 
 =cut
 
-has info => (
-    is       => 'rw',
-    isa      => SensorInfo,
+has sensor_name => (
+    is       => 'ro',
+    isa      => 'SensorName', # the Moose type
+    coerce   => 1,  # will allow a string here
     required => 1,
 );
 
-=head2 hourly_results
+=head2 latest_measurement
+
+stores the latest measurement provided by the sensor.
 
 =cut
 
-has hourly_results => (
-    is      => 'rw',
-    isa     => 'ArrayRef[Summary]', # fixme: does 'Summary' work?
-    default => sub { [] },
+has latest_measurement => (
+    is     => 'rw',
+    isa    => 'Measurement', # the Moose type
+    coerce => 1,    # will allow an int here
+    writer => '_set_latest_measurement',
 );
 
-=head2 daily_results
+=head2 alarm_info
+
+may hold info about an alarm raised some time ago.
 
 =cut
 
-has daily_results => (
-    is      => 'rw',
-    isa     => 'ArrayRef[Summary]', # fixme: does 'Summary' work?
-    default => sub { [] },
+has alarm_info => (
+    is        => 'rw',
+    isa       => AlarmInfo, # the aliased class
+    predicate => 'has_alarm_info',
+    clearer   => '_clear_alarm_info',
+    writer    => '_set_alarm_info',
 );
 
 =head1 METHODS
 
 =cut
 
-=head2 provide_result ( $result )
+=head2 provide_measurement_result ( $result_or_value )
 
 save the result provided by a sensor. $result may be either an integer value
 or a Measurement object.
 
 =cut
 
-sub provide_result {
+sub provide_measurement_result {
     my ( $self, $result_or_value ) = @_;
 
-    $self->info($self->info->new_measurement($result_or_value));
+    $self->_set_latest_measurement($result_or_value);
     $self->publish(
         MeasurementProvided->new(
-            measurement => $self->info->measurement
+            measurement => $self->latest_measurement
         )
     );
 }

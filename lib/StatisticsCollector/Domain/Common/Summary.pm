@@ -41,7 +41,7 @@ returns true if a timestamp is in the same range as the summary
 =cut
 
 sub range_matches {
-    my ($self, $value) = @_;
+    my ($self, $timestamp) = @_;
     
     return DateTime->compare($self->from, $timestamp) <= 0
         && DateTime->compare($self->to,   $timestamp) > 0;

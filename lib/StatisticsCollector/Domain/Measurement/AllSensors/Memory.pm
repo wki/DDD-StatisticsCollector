@@ -27,7 +27,7 @@ only valid for a single process
 
 =head2 filtered ( $filter )
 
-returns a list of L<SensorInfo> objects matched by a given filter.
+returns a list of L<Sensor> objects matched by a given filter.
 
 =cut
 
@@ -35,7 +35,6 @@ sub filtered {
     my ($self, $filter) = @_;
     
     my @filtered =
-        map { $_->info }
         # grep { ... } # TODO: define filter
         values %sensor_for;
     
@@ -64,7 +63,7 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    my $name = $sensor->info->name;
+    my $name = $sensor->sensor_name->name;
     $sensor_for{$name} = $sensor;
 }
 

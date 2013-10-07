@@ -1,19 +1,17 @@
 use strict;
 use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use MockDomain;
 use Test::More;
 use Test::Exception;
 
-{
-    package D;              # Mock Domain
-    use Moose;
-    
-    extends 'DDD::Base::Domain';
-}
-
 use ok 'StatisticsCollector::Domain::Measurement::AllSensors';
 
-my $d = D->new;
+my $d = MockDomain->new;
 my $s = StatisticsCollector::Domain::Measurement::AllSensors->new(domain => $d);
+
+can_ok $s, qw(filtered by_name save);
 
 dies_ok { $s->filtered } 'filtered dies';
 dies_ok { $s->by_name } 'by_name dies';
