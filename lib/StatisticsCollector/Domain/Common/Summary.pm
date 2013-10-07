@@ -59,7 +59,7 @@ sub from_measurement {
     
     $truncate //= 'hour';
     
-    my $from  = $result->measured_on->truncate( to => $truncate );
+    my $from  = $result->measured_on->clone->truncate( to => $truncate );
     my $to    = $from->clone->add("${truncate}s" => 1);
     my $value = $result->result;
     

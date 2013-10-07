@@ -1,26 +1,23 @@
 use strict;
 use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../../lib";
+use MockDomain;
 use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-{
-    package D;              # Mock Domain
-    use Moose;
-    
-    extends 'DDD::Base::Domain';
-}
-
 use ok 'StatisticsCollector::Domain::Measurement::Sensor';
 
-my $d = D->new;
+my $d = MockDomain->new;
 
 my $s = StatisticsCollector::Domain::Measurement::Sensor->new(
+    domain             => $d,
     sensor_name        => 'xxx/yy/z',
     latest_measurement => 100,
 );
 
-note 'provide';
+note 'provide measurement';
 on '2012-12-10 23:13:45' => sub {
     is $s->event_publisher->_nr_events, 0, 'no events yet';
     
