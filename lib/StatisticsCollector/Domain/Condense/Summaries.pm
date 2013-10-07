@@ -66,8 +66,8 @@ adds a measurement to hourly and daily summary arrays.
 sub add_measurement {
     my ($self, $measurement) = @_;
     
-    $self->_append_to($self->hourly_summaries, 'hour', $measurement);
-    $self->_append_to($self->daily_summaries,  'day',  $measurement);
+    $self->_append_to($measurement => $self->hourly_summaries, 'hour');
+    $self->_append_to($measurement => $self->daily_summaries,  'day');
     
     # TODO: clean up too old hourly summaries.
     # Idea: truncate _now to current day, subtract 3 days
@@ -75,17 +75,17 @@ sub add_measurement {
 }
 
 sub _append_to {
-    my ($self, $summaries, $interval, $measurement) = @_;
+    my ($self, $measurement, $summaries, $interval) = @_;
 
-    if ($self->_can_append_to_latest_summary($summaries, $measurement)) {
-        $self->_append_to_latest_summary($summaries, $measurement);
+    if ($self->_can_append_to_latest_summary($measurement, $summaries)) {
+        $self->_append_to_latest_summary($measurement, $summaries);
     } else {
-        $self->_append_new_summary($summaries, $interval, $measurement);
+        $self->_append_new_summary($measurement, $summaries, $interval);
     }
 }
 
 sub _can_append_to_latest_summary {
-    my ($self, $summaries, $measurement) = @_;
+    my ($self, $measurement, $summaries) = @_;
     
     return if !scalar @$summaries;
     
@@ -94,7 +94,7 @@ sub _can_append_to_latest_summary {
 }
 
 sub _append_to_latest_summary {
-    my ($self, $summaries, $measurement) = @_;
+    my ($self, $measurement, $summaries) = @_;
     
     my $latest_summary = $summaries->[-1];
     
@@ -103,7 +103,7 @@ sub _append_to_latest_summary {
 }
 
 sub _append_new_summary {
-    my ($self, $summaries, $interval, $measurement) = @_;
+    my ($self, $measurement, $summaries, $interval) = @_;
     
     push @$summaries,
         Summary->from_measurement($measurement, $interval);
