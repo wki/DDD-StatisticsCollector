@@ -9,12 +9,12 @@ extends 'DDD::Event';
 has cleared_on => (
     is      => 'ro',
     isa     => 'DateTime',
-    default => sub { DateTime->now( time_zone => 'local' ) },
+    default => sub { $_[0]->_now },
 );
 
 has sensor => (
     is       => 'ro',
-    isa      => 'SensorName',
+    isa      => 'SensorName', # the Moose Type
     coerce   => 1,
     required => 1,
 );
