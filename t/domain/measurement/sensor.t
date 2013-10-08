@@ -13,7 +13,7 @@ my $d = MockDomain->new;
 
 my $s = StatisticsCollector::Domain::Measurement::Sensor->new(
     domain             => $d,
-    sensor_name        => 'xxx/yy/z',
+    id                 => 'xxx/yy/z',
     latest_measurement => 100,
 );
 

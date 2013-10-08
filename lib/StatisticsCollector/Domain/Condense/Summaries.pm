@@ -25,11 +25,13 @@ summaries for a sensor
 =cut
 
 has sensor_name => (
-    is       => 'ro',
-    isa      => 'SensorName', # the Moose class
-    coerce   => 1,
-    required => 1,
+    is         => 'ro',
+    isa        => 'SensorName', # the Moose class
+    coerce     => 1,
+    lazy_build => 1,
 );
+
+sub _build_sensor_name { $_[0]->id }
 
 =head2 hourly_summaries
 

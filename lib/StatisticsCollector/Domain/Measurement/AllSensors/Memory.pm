@@ -63,8 +63,7 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    my $name = $sensor->sensor_name->name;
-    $sensor_for{$name} = $sensor;
+    $sensor_for{$sensor->id} = $sensor;
 }
 
 __PACKAGE__->meta->make_immutable;

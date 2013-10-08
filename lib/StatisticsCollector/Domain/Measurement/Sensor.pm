@@ -30,11 +30,13 @@ C<<< a/b/c >>>
 =cut
 
 has sensor_name => (
-    is       => 'ro',
-    isa      => 'SensorName', # the Moose type
-    coerce   => 1,  # will allow a string here
-    required => 1,
+    is         => 'ro',
+    isa        => 'SensorName', # the Moose type
+    coerce     => 1,  # will allow a string here
+    lazy_build => 1,
 );
+
+sub _build_sensor_name { $_[0]->id }
 
 =head2 latest_measurement
 
@@ -80,6 +82,7 @@ sub provide_measurement_result {
     $self->_set_latest_measurement($result_or_value);
     $self->publish(
         MeasurementProvided->new(
+            sensor_name => $self->id,
             measurement => $self->latest_measurement
         )
     );

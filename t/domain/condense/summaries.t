@@ -13,8 +13,8 @@ use ok 'StatisticsCollector::Domain::Condense::Summaries';
 my $d = MockDomain->new;
 
 my $s = StatisticsCollector::Domain::Condense::Summaries->new(
-    domain      => $d,
-    sensor_name => 'xxx/yy/z',
+    domain => $d,
+    id     => 'xxx/yy/z',
 );
 
 note 'initial state';

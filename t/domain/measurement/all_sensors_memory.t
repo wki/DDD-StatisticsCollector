@@ -16,11 +16,11 @@ my $s = StatisticsCollector::Domain::Measurement::AllSensors::Memory->new(
 );
 
 my $s_xyz = Sensor->new(
-    sensor_name        => 'x/y/z',
+    id                 => 'x/y/z',
     latest_measurement => 42,
 );
 my $s_abc = Sensor->new(
-    sensor_name        => 'a/b/c',
+    id                 => 'a/b/c',
     latest_measurement => 13,
 );
 
@@ -58,7 +58,7 @@ note 'retrieve single';
 note 'save';
 {
     my $s_uvw = Sensor->new(
-        sensor_name        => 'u/v/w',
+        id                 => 'u/v/w',
         latest_measurement => -42,
     );
     

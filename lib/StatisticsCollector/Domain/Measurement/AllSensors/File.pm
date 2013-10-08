@@ -5,6 +5,7 @@ use aliased 'StatisticsCollector::Domain::Measurement::Sensor';
 use namespace::autoclean;
 
 extends 'StatisticsCollector::Domain::Measurement::AllSensors';
+with 'StatisticsCollector::Domain::Role::FileStorage';
 
 =head1 NAME
 
@@ -15,29 +16,13 @@ implementation of a sensors repository
 
 =head1 DESCRIPTION
 
-=head1 ATTRIBUTES
-
 =cut
-
-=head2 dir
-
-a directory where all sensor files are saved to. The path for a sensor file
-will get obtained by its name. A sensor named "a/b/c" will be saved in a file
-named "a-b-c.json"
-
-=cut
-
-has dir => (
-    traits   => [ 'DoNotSerialize' ],
-    is       => 'ro',
-    isa      => Dir,
-    coerce   => 1,
-    required => 1,
-);
 
 =head1 METHODS
 
 =cut
+
+sub _build_file_suffix { '' }
 
 =head2 filtered ( $filter )
 
@@ -64,7 +49,6 @@ found with the requested name, C<undef> is returned
 sub by_name {
     my ($self, $sensor_name) = @_;
 
-    # load dies: 'domain' is required
     return Sensor->load($self->_file($sensor_name)->stringify);
 }
 
@@ -77,23 +61,7 @@ writes a sensor to its storage
 sub save {
     my ($self, $sensor) = @_;
     
-    $sensor->store($self->_file($sensor->sensor_name->name)->stringify);
-}
-
-# convert sensor_name to file_name
-sub _file_name {
-    my ($self, $sensor_name) = @_;
-    
-    $sensor_name =~ s{/}{.}xmsg;
-    
-    return "$sensor_name.json";
-}
-
-# concvert sensor_name to a file object
-sub _file {
-    my ($self, $sensor_name) = @_;
-    
-    return $self->dir->file($self->_file_name($sensor_name));
+    $sensor->store($self->_file($sensor->id)->stringify);
 }
 
 __PACKAGE__->meta->make_immutable;

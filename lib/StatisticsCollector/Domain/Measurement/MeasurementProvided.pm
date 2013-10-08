@@ -1,6 +1,7 @@
 package StatisticsCollector::Domain::Measurement::MeasurementProvided;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
+use aliased 'StatisticsCollector::Domain::Common::SensorName';
 use namespace::autoclean;
 
 extends 'DDD::Event';
@@ -17,6 +18,20 @@ when a MeasureResult has been provided
 =head1 ATTRIBUTES
 
 =cut
+
+=head2 sensor_name
+
+holds the sensor's name as a tree-part string delimited with slashes like
+C<<< a/b/c >>>
+
+=cut
+
+has sensor_name => (
+    is       => 'ro',
+    isa      => 'SensorName', # the Moose type
+    coerce   => 1,  # will allow a string here
+    required => 1,
+);
 
 =head2 measurement
 

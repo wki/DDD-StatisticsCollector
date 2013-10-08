@@ -1,13 +1,13 @@
-package StatisticsCollector::Domain::Measurement::SensorCreator;
+package StatisticsCollector::Domain::Condense::SummariesCreator;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Measurement::Sensor';
+use aliased 'StatisticsCollector::Domain::Condense::Summaries';
 use namespace::autoclean;
 
 extends 'DDD::Factory';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Measurement::SensorCreator - a sensor factory
+StatisticsCollector::Domain::Condense::SummariesCreator - a summaries factory
 
 =head1 SYNOPSIS
 
@@ -17,16 +17,16 @@ StatisticsCollector::Domain::Measurement::SensorCreator - a sensor factory
 
 =cut
 
-=head2 new_sensor ( $sensor_name )
+=head2 new_summaries ( $sensor_name )
 
-create a new sensor with a name
+create a new summaries object for a sensor
 
 =cut
 
-sub new_sensor {
+sub new_summaries {
     my ($self, $sensor_name) = @_;
     
-    return Sensor->new(
+    return Summaries->new(
         id          => $sensor_name,
         sensor_name => $sensor_name,
     );

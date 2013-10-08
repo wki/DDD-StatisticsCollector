@@ -18,7 +18,7 @@ my $s = StatisticsCollector::Domain::Measurement::AllSensors::File->new(
 );
 
 my $s_xyz = Sensor->new(
-    sensor_name        => 'x/y/z',
+    id                 => 'x/y/z',
     latest_measurement => 42,
 );
 
