@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Condense::CondenseMeasures;
 use DDD::Service;
-use aiased 'StatisticsCollector::Domain::Condense::AllSummaries';
-use aiased 'StatisticsCollector::Domain::Condense::SummariesCreator';
+use aliased 'StatisticsCollector::Domain::Condense::AllSummaries';
+use aliased 'StatisticsCollector::Domain::Condense::SummariesCreator';
 
 =head1 NAME
 
@@ -43,7 +43,11 @@ has summaries_creator => (
 );
 
 sub _build_summaries_creator {
-    SummariesCreator->new;
+    my $self = shift;
+    
+    SummariesCreator->new(
+        domain => $self->domain,
+    );
 }
 
 =head1 EVENTS
@@ -53,8 +57,8 @@ sub _build_summaries_creator {
 on MeasurementProvided => sub {
     my ($self, $event) = @_;
 
-    $self->condense_measurements(
-        $event->sensor_name,
+    $self->add_measurement(
+        $event->sensor_name->name,
         $event->measurement
     );
 };

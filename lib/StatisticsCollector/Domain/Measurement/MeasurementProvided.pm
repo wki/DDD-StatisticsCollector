@@ -39,7 +39,7 @@ has sensor_name => (
 
 has measurement => (
     is       => 'ro',
-    isa      => 'Measurement',
+    isa      => 'Measurement', # the Moose type
     coerce   => 1,
     required => 1,
 );

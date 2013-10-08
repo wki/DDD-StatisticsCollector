@@ -44,16 +44,16 @@ has file_suffix => (
 # convert sensor_name to file_name
 sub _file_name {
     my ($self, $sensor_name) = @_;
-    
-    $sensor_name =~ s{/}{.}xmsg;
-    
-    return sprintf '%s%s.json', $sensor_name, $self->file_suffix;
+
+    join '.',
+        grep { $_ }
+        split('/', $sensor_name), $self->file_suffix, 'json';
 }
 
 # convert sensor_name to a file object
 sub _file {
-    my ($self, $id) = @_;
-    
+    my ($self, $sensor_name) = @_;
+
     return $self->dir->file($self->_file_name($sensor_name));
 }
 

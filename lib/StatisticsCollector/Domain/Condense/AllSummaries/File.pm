@@ -23,7 +23,7 @@ see StatisticsCollector::Domain::Condense::AllSummaries
 
 =cut
 
-sub _build_file_suffix { '.summaries' }
+sub _build_file_suffix { 'summaries' }
 
 =head2 for_sensor ( $sensor_name )
 
