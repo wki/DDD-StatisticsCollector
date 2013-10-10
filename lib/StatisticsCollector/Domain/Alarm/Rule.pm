@@ -13,6 +13,17 @@ check
 
 =head1 SYNOPSIS
 
+    # scalar context: just answer a boolean value
+    if ($rule->is_satisfied($measurement)) { ... }
+    
+    # list context: return (boolean, 'name of failing rule')
+    my ($status, $failing_condition) = $rule->is_satisfied($measurement);
+    if ($status) {
+        # rule is satisfied
+    } else {
+        # rule is not satisfied
+    }
+
 =head1 DESCRIPTION
 
 =head1 ATTRIBUTES
@@ -29,7 +40,9 @@ has conditions => (
     isa      => 'ArrayRef',    # of Conditions
     required => 1,
     handles  => {
-        all_conditions => 'elements',
+        all_conditions    => 'elements',
+        has_no_conditions => 'is_empty',
+        has_conditions    => 'count',
     },
 );
 
@@ -67,9 +80,17 @@ checking all conditions of the rule.
 sub is_satisfied {
     my ($self, $measurement) = @_;
     
-    ### FIXME: what happens if we have no conditions? pass?
+    my @result = (1, '');
     
-    return all { $_->is_satisfied($measurement) } $self->all_conditions;
+    # return all { $_->is_satisfied($measurement) } $self->all_conditions;
+    foreach my $condition ($self->all_conditions) {
+        if (!$condition->is_satisfied($measurement)) {
+            @result = (0, $condition->name);
+            last;
+        }
+    }
+    
+    return wantarray ? @result : $result[0];
 }
 
 __PACKAGE__->meta->make_immutable;

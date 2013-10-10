@@ -2,6 +2,8 @@ package StatisticsCollector::Domain::Alarm::Alarm;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::SensorName';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
+use aliased 'StatisticsCollector::Domain::Alarm::AlarmRaised';
+use aliased 'StatisticsCollector::Domain::Alarm::AlarmCleared';
 use namespace::autoclean;
 
 extends 'DDD::Aggregate';
@@ -57,6 +59,13 @@ sub raise {
     my ($self, $message) = @_;
     
     # ...
+    
+    $self->publish(
+        AlarmRaised->new(
+            sensor_name => $self->id,
+            message     => $message,
+        )
+    );
 }
 
 =head2 clear
