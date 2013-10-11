@@ -1,15 +1,17 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Measurement::SensorCreator';
+BEGIN { $class = 'StatisticsCollector::Domain::Measurement::SensorCreator' }
+use ok $class;
 
 my $d = MockDomain->new;
-my $c = StatisticsCollector::Domain::Measurement::SensorCreator->new(
+my $c = $class->new(
     domain => $d,
 );
 

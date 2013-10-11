@@ -54,6 +54,13 @@ sub _build_summaries_creator {
 
 =cut
 
+=head2 MeasurementProvided
+
+the condense service listens to MeasurementProvided and inserts the latest
+measurement reported by this event into the summaries for this sensor.
+
+=cut
+
 on MeasurementProvided => sub {
     my ($self, $event) = @_;
 

@@ -44,8 +44,13 @@ note 'raising an alarm';
 
 note 'clearing an alarm';
 {
-    my $x;
+    $a->clear;
+    
+    ok !$a->has_alarm, 'alarm is indicated as cleared';
+    
+    is scalar @{$a->previous_alarms}, 1, 'one previous alarm';
+    
+    is $a->event_publisher->_nr_events, 2, 'two events waiting';
 }
 
 done_testing;
-

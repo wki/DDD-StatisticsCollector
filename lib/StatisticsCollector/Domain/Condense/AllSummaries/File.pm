@@ -8,8 +8,8 @@ with 'StatisticsCollector::Domain::Role::FileStorage';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Condense::AllSummaries::File - a repository base class
-for retrieving and saving Summaries as files
+StatisticsCollector::Domain::Condense::AllSummaries::File - a file based
+storage for retrieving and saving Summaries as files
 
 =head1 SYNOPSIS
 

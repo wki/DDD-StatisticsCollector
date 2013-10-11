@@ -75,6 +75,9 @@ has sensor_mask => (
 returns true if the rule is satisfied for a measurement. This is done by
 checking all conditions of the rule.
 
+In List context, returns a boolean C<is_satisfied> status and the name of
+the rule that caused the false condition.
+
 =cut
 
 sub is_satisfied {
@@ -84,6 +87,7 @@ sub is_satisfied {
     
     # return all { $_->is_satisfied($measurement) } $self->all_conditions;
     foreach my $condition ($self->all_conditions) {
+        # warn "testing '${\$condition->name}'...";
         if (!$condition->is_satisfied($measurement)) {
             @result = (0, $condition->name);
             last;

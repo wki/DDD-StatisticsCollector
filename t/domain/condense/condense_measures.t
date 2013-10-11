@@ -8,7 +8,7 @@ use Test::More;
 use Test::Exception;
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
-use aliased 'StatisticsCollector::Domain::Condense::AllSummaries::Memory';
+use aliased 'StatisticsCollector::Domain::Condense::AllSummaries::Memory' => 'AllSummaries';
 
 BEGIN { $class = 'StatisticsCollector::Domain::Condense::CondenseMeasures' }
 
@@ -17,7 +17,7 @@ use ok $class;
 my $d = MockDomain->new;
 my $c = $class->new(
     domain => $d,
-    all_summaries => Memory->new(domain => $d),
+    all_summaries => AllSummaries->new(domain => $d),
 );
 
 note 'basic behavior';

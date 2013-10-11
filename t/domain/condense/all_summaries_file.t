@@ -36,7 +36,7 @@ note 'internal methods';
 
 note 'saving';
 {
-    ok !-f $dir->file('x.y.z.summareis.json'), 'x.y.z.summaries.json not present before save';
+    ok !-f $dir->file('x.y.z.summaries.json'), 'x.y.z.summaries.json not present before save';
     $s->save($s_xyz);
     ok -f $dir->file('x.y.z.summaries.json'), 'x.y.z.summaries.json present after save';
     
