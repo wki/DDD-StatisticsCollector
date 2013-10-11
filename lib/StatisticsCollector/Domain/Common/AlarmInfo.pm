@@ -1,5 +1,6 @@
 package StatisticsCollector::Domain::Common::AlarmInfo;
 use Moose;
+use Moose::Util::TypeConstraints;
 use DateTime;
 use namespace::autoclean;
 
@@ -13,6 +14,21 @@ about a possible alarm
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
+
+=head1 TYPES
+
+=cut
+
+=head2 Measurement
+
+=cut
+
+class_type 'AlarmInfo',
+    { class => __PACKAGE__ };
+
+coerce 'AlarmInfo',
+    from 'Str',
+    via { __PACKAGE__->new( message => $_ ) };
 
 =head1 ATTRIBUTES
 
@@ -38,11 +54,11 @@ has cleared_on => (
     predicate => 'is_cleared',
 );
 
-=head2 name
+=head2 message
 
 =cut
 
-has name => (
+has message => (
     is        => 'ro',
     isa       => 'Str',
     predicate => 'has_alarm',
@@ -64,7 +80,7 @@ sub clear {
     return __PACKAGE__->new(
         raised_on  => $self->raised_on,
         cleared_on => $self->_now,
-        name       => $self->name,
+        message    => $self->message,
     );
 }
 

@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
@@ -9,10 +10,12 @@ use aliased 'StatisticsCollector::Domain::Common::Measurement';
 use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
 use aliased 'StatisticsCollector::Domain::Condense::AllSummaries::Memory';
 
-use ok 'StatisticsCollector::Domain::Condense::CondenseMeasures';
+BEGIN { $class = 'StatisticsCollector::Domain::Condense::CondenseMeasures' }
+
+use ok $class;
 
 my $d = MockDomain->new;
-my $c = StatisticsCollector::Domain::Condense::CondenseMeasures->new(
+my $c = $class->new(
     domain => $d,
     all_summaries => Memory->new(domain => $d),
 );

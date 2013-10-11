@@ -1,15 +1,18 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Condense::AllSummaries';
+BEGIN { $class = 'StatisticsCollector::Domain::Condense::AllSummaries' }
+
+use ok $class;
 
 my $d = MockDomain->new;
-my $s = StatisticsCollector::Domain::Condense::AllSummaries->new(domain => $d);
+my $s = $class->new(domain => $d);
 
 can_ok $s, qw(for_sensor save);
 

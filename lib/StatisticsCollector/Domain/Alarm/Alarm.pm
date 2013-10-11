@@ -1,10 +1,13 @@
 package StatisticsCollector::Domain::Alarm::Alarm;
+use Carp;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::SensorName';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use aliased 'StatisticsCollector::Domain::Alarm::AlarmRaised';
 use aliased 'StatisticsCollector::Domain::Alarm::AlarmCleared';
 use namespace::autoclean;
+
+use constant NR_ALARMS_TO_KEEP => 5;
 
 extends 'DDD::Aggregate';
 
@@ -14,6 +17,12 @@ StatisticsCollector::Domain::Alarm::Alarm - a potential alarm information for
 a sensor
 
 =head1 SYNOPSIS
+
+    # raise an alarm -- will publish AlarmRaised event
+    $alarm->raise('Latest Value too old');
+    
+    # clear the latest raised alarm
+    $alarm->clear;
 
 =head1 DESCRIPTION
 
@@ -27,7 +36,7 @@ a sensor
 
 has sensor_name => (
     is         => 'ro',
-    isa        => 'SensorName', # the Moose class
+    isa        => 'SensorName', # the Moose type
     coerce     => 1,
     lazy_build => 1,
 );
@@ -39,10 +48,28 @@ sub _build_sensor_name { $_[0]->id }
 =cut
 
 has alarm_info => (
-    is => 'ro',
-    isa => AlarmInfo, # the class
-    predicate => 'has_alarm_info',
-    # clearer => 'clear_alarm_info',
+    is        => 'ro',
+    isa       => 'AlarmInfo', # the Moose type
+    coerce    => 1,
+    predicate => 'has_alarm',
+    writer    => '_set_alarm_info',
+    clearer   => '_clear_alarm_info',
+);
+
+=head previous_alarms
+
+=cut
+
+has previous_alarms => (
+    traits  => ['Array'],
+    is      => 'rw',
+    isa     => 'ArrayRef',  # of AlarmInfo
+    default => sub { [] },
+    handles => {
+        _keep_alarm     => 'push',
+        _nr_kept_alarms => 'count',
+        _remove_alarm   => 'shift',
+    },
 );
 
 =head1 METHODS
@@ -58,12 +85,14 @@ raise an alarm with a message
 sub raise {
     my ($self, $message) = @_;
     
-    # ...
+    croak 'message is mandatory' if !$message;
+    
+    $self->_set_alarm_info($message);
     
     $self->publish(
         AlarmRaised->new(
             sensor_name => $self->id,
-            message     => $message,
+            alarm_info  => $self->alarm_info,
         )
     );
 }
@@ -77,7 +106,29 @@ clear an alarm
 sub clear {
     my $self = shift;
     
-    # ...
+    croak 'not in alarm state' if !$self->has_alarm;
+    
+    my $cleared_alarm_info = $self->alarm_info->clear;
+    
+    $self->_append_to_previous_alarms($cleared_alarm_info);
+    
+    $self->_clear_alarm_info;
+    
+    $self->publish(
+        AlarmCleared->new(
+            sensor_name => $self->id,
+            alarm_info  => $cleared_alarm_info,
+        )
+    );
+}
+
+sub _append_to_previous_alarms {
+    my ($self, $alarm_info) = @_;
+    
+    $self->_keep_alarm($alarm_info);
+    while ($self->_nr_kept_alarms > NR_ALARMS_TO_KEEP) {
+        $self->_remove_alarm;
+    }
 }
 
 __PACKAGE__->meta->make_immutable;

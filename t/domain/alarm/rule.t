@@ -1,8 +1,11 @@
 use strict;
 use warnings;
+use vars '$class';
 use Test::More;
 
-use ok 'StatisticsCollector::Domain::Alarm::Rule';
+BEGIN { $class = 'StatisticsCollector::Domain::Alarm::Rule' }
+
+use ok $class;
 
 {
     package Bad;
@@ -26,7 +29,7 @@ use ok 'StatisticsCollector::Domain::Alarm::Rule';
 
 note 'basic behavior';
 {
-    my $rule = StatisticsCollector::Domain::Alarm::Rule->new(
+    my $rule = $class->new(
         name       => 'nonsense',
         conditions => [],
     );
@@ -51,7 +54,7 @@ note 'condition check';
             map { $_->new(value => 0, name => $_) }
             @{$testcase->{conditions}};
         
-        my $rule = StatisticsCollector::Domain::Alarm::Rule->new(
+        my $rule = $class->new(
             name       => $testcase->{name},
             conditions => \@conditions,
         );

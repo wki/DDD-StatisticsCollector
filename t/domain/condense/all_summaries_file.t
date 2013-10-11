@@ -1,18 +1,21 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use aliased 'StatisticsCollector::Domain::Condense::Summaries';
 use Path::Class;
 use Test::More;
 
+BEGIN { $class = 'StatisticsCollector::Domain::Condense::AllSummaries::File' }
+
 my $dir = Path::Class::tempdir(CLEANUP => 1);
 
-use ok 'StatisticsCollector::Domain::Condense::AllSummaries::File';
+use ok $class;
 
 my $d = MockDomain->new;
-my $s = StatisticsCollector::Domain::Condense::AllSummaries::File->new(
+my $s = $class->new(
     domain => $d,
     dir    => $dir,
 );

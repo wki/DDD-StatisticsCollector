@@ -1,17 +1,19 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use aliased 'StatisticsCollector::Domain::Condense::Summaries';
-
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Condense::AllSummaries::Memory';
+BEGIN { $class = 'StatisticsCollector::Domain::Condense::AllSummaries::Memory' }
+
+use ok $class;
 
 my $d = MockDomain->new;
-my $s = StatisticsCollector::Domain::Condense::AllSummaries::Memory->new(
+my $s = $class->new(
     domain => $d,
 );
 

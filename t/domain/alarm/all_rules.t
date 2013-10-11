@@ -1,15 +1,18 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Alarm::AllRules';
+BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllRules' }
+
+use ok $class;
 
 my $d = MockDomain->new;
-my $a = StatisticsCollector::Domain::Alarm::AllRules->new(domain => $d);
+my $a = $class->new(domain => $d);
 
 can_ok $a, 'for_sensor';
 

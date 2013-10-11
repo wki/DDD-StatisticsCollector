@@ -11,6 +11,16 @@ for file storage
 
 =head1 DESCRIPTION
 
+All files for sensors are saved inside one directory. Every file name starts
+with the sensor name, "/" replaced with a dot ".". So Sensor C<x/y/z>
+is stored in files prefixed with F<x.y.z>. After that, an optional suffix
+is appended and the file extension ".json" is added.
+
+For customization, the C<file_suffix> can be set using a builder method.
+
+Example file names are F<x.y.z.json> or with a suffix of "alarm"
+F<x.y.z.alarm.json>.
+
 =head1 ATTRIBUTES
 
 =cut

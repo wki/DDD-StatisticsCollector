@@ -93,4 +93,19 @@ Messages passed
 * Alarm::AlarmRaised / Alarm::AlarmCleared
 
   sent out after an alarm for a sensor raised or cleared.
-    
+
+
+Storage in Files
+----------------
+
+This is how Measures and Alarm Info for Sensors x/y/z and a/b/c are saved:
+
+    /path/to/storage/
+        |
+        +-- x.y.z.json              -- the latest measure for x/y/z
+        |
+        +-- x.y.z.summaries.json    -- summary values for x/y/z
+        |
+        +-- x.y.z.alarm.json        -- current and previous alarms for x/y/z
+        |
+        +-- a.b.c.json

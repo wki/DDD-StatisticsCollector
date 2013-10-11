@@ -59,7 +59,7 @@ may hold info about an alarm raised some time ago.
 
 has alarm_info => (
     is        => 'rw',
-    isa       => AlarmInfo, # the aliased class
+    isa       => 'AlarmInfo', # the Moose type
     predicate => 'has_alarm_info',
     clearer   => '_clear_alarm_info',
     writer    => '_set_alarm_info',

@@ -2,6 +2,7 @@ package StatisticsCollector::Domain::Alarm::AlarmCleared;
 use Moose;
 use DateTime;
 use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use namespace::autoclean;
 
 extends 'DDD::Event';
@@ -12,16 +13,17 @@ has cleared_on => (
     default => sub { $_[0]->_now },
 );
 
-has sensor => (
+has sensor_name => (
     is       => 'ro',
     isa      => 'SensorName', # the Moose Type
     coerce   => 1,
     required => 1,
 );
 
-has message => (
+has alarm_info => (
     is       => 'ro',
-    isa      => 'Str',
+    isa      => 'AlarmInfo', # the Moose Type
+    coerce   => 1,
     required => 1,
 );
 

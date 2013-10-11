@@ -1,15 +1,18 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
 use Test::Exception;
 
-use ok 'StatisticsCollector::Domain::Alarm::AllRules::Fixed';
+BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllRules::Fixed' }
+
+use ok $class;
 
 my $d = MockDomain->new;
-my $a = StatisticsCollector::Domain::Alarm::AllRules::Fixed->new(domain => $d);
+my $a = $class->new(domain => $d);
 
 note 'basic behavior';
 {
