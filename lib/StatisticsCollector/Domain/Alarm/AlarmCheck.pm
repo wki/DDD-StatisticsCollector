@@ -93,6 +93,10 @@ check the measurement reported by a given sensor against all matching rules.
 Raise an alarm if the measurement is not satisfied by the rule found or clear
 a previously raised alarm if the rule is satisfied again.
 
+### TODO: if no measurement is given, the latest measurement is tested
+###       for the sensor.
+
+
 =cut
 
 sub check_alarm {
