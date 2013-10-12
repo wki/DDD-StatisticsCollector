@@ -7,8 +7,6 @@ use MockDomain;
 use Test::More;
 use Test::MockDateTime;
 
-# use aliased 'StatisticsCollector::Domain::Alarm::AlarmRaised';
-# use aliased 'StatisticsCollector::Domain::Alarm::AlarmCleared';
 use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use aliased 'StatisticsCollector::Infrastructure::Notifier::Memory'
