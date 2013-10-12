@@ -68,6 +68,7 @@ sub notify_alarm_raised_message {
     my ($self, $sensor_id, $alarm_info) = @_;
     
     $self->_notify(
+        'Problem',
         "Sensor '${\$sensor_id->name}' " .
         "raised alarm '${\$alarm_info->message}'"
     );
@@ -81,9 +82,10 @@ sub notify_alarm_cleared_message {
     my ($self, $sensor_id, $alarm_info) = @_;
     
     $self->_notify(
+        'Recovery',
         "Sensor '${\$sensor_id->name}' " .
         "cleared alarm '${\$alarm_info->message}' " .
-        "raised on ${\$alarm_info->ymd} ${\$alarm_info->hms}"
+        "raised on ${\$alarm_info->raised_on->ymd} ${\$alarm_info->raised_on->hms}"
     );
 }
 

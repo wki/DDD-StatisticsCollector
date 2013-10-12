@@ -27,6 +27,7 @@ has messages => (
     default => sub { [] },
     handles => {
         add_message => 'push',
+        clear       => 'clear',
     },
 );
 
