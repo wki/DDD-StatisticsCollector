@@ -25,16 +25,16 @@ see StatisticsCollector::Domain::Condense::AllSummaries
 
 sub _build_file_suffix { 'summaries' }
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load summaries for a sensor identified by its name
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
-    return Summaries->load($self->_file($sensor_name)->stringify);
+    return Summaries->load($self->_file($sensor_id)->stringify);
 }
 
 =head2 save ( $summaries )

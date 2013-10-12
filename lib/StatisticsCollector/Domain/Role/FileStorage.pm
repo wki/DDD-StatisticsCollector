@@ -51,20 +51,20 @@ has file_suffix => (
 
 =cut
 
-# convert sensor_name to file_name
+# convert sensor_id to file_name
 sub _file_name {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
 
     join '.',
         grep { $_ }
-        split('/', $sensor_name), $self->file_suffix, 'json';
+        split('/', $sensor_id), $self->file_suffix, 'json';
 }
 
-# convert sensor_name to a file object
+# convert sensor_id to a file object
 sub _file {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
 
-    return $self->dir->file($self->_file_name($sensor_name));
+    return $self->dir->file($self->_file_name($sensor_id));
 }
 
 1;

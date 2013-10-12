@@ -17,18 +17,18 @@ StatisticsCollector::Domain::Alarm::AlarmCreator - an alarm factory
 
 =cut
 
-=head2 new_alarm ( $sensor_name )
+=head2 new_alarm ( $sensor_id )
 
 create a new alarm for a sensor
 
 =cut
 
 sub new_alarm {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
     return Alarm->new(
-        id          => $sensor_name,
-        sensor_name => $sensor_name,
+        id          => $sensor_id,
+        sensor_id => $sensor_id,
     );
 }
 

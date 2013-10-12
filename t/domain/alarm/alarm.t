@@ -17,7 +17,7 @@ my $alarm = $class->new(domain => $domain, id => 'a/bb/ccc');
 
 note 'basic behavior';
 {
-    is $alarm->sensor_name->name, 'a/bb/ccc', 'sensor_name';
+    is $alarm->sensor_id->name, 'a/bb/ccc', 'sensor_id';
     
     ok !$alarm->has_alarm, 'no alarm';
     

@@ -1,4 +1,4 @@
-package StatisticsCollector::Domain::Common::SensorName;
+package StatisticsCollector::Domain::Common::SensorId;
 use Moose;
 use Moose::Util::TypeConstraints;
 use namespace::autoclean;
@@ -7,7 +7,7 @@ extends 'DDD::Value';
 
 =head1 NAME
 
-StatisticsCollector::Domain::Common::SensorName - Sensor name value object
+StatisticsCollector::Domain::Common::SensorId - Sensor name value object
 
 =head1 SYNOPSIS
 
@@ -17,14 +17,14 @@ StatisticsCollector::Domain::Common::SensorName - Sensor name value object
 
 =cut
 
-=head2 SensorName
+=head2 SensorId
 
 =cut
 
-class_type 'SensorName',
+class_type 'SensorId',
     { class => __PACKAGE__ };
 
-coerce 'SensorName',
+coerce 'SensorId',
     from 'Str',
     via { __PACKAGE__->new( name => $_ ) };
 
@@ -32,7 +32,7 @@ coerce 'SensorName',
 
 =cut
 
-subtype 'Constrained_SensorName',
+subtype 'Constrained_SensorId',
     as 'Str',
     where { m{\A \w+ / \w+ / \w+ \z}xms },
     message { "This name ($_) does not match x/y/z" };
@@ -43,7 +43,7 @@ subtype 'Constrained_SensorName',
 
 has name => (
     is       => 'ro',
-    isa      => 'Constrained_SensorName',
+    isa      => 'Constrained_SensorId',
     required => 1,
 );
 

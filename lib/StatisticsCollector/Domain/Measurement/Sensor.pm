@@ -3,7 +3,7 @@ use Moose;
 use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 
 use namespace::autoclean;
 
@@ -22,21 +22,21 @@ a sensor
 
 =cut
 
-=head2 sensor_name
+=head2 sensor_id
 
 holds the sensor's name as a tree-part string delimited with slashes like
 C<<< a/b/c >>>
 
 =cut
 
-has sensor_name => (
+has sensor_id => (
     is         => 'ro',
-    isa        => 'SensorName', # the Moose type
+    isa        => 'SensorId', # the Moose type
     coerce     => 1,  # will allow a string here
     lazy_build => 1,
 );
 
-sub _build_sensor_name { $_[0]->id }
+sub _build_sensor_id { $_[0]->id }
 
 =head2 latest_measurement
 
@@ -82,7 +82,7 @@ sub provide_measurement_result {
     $self->_set_latest_measurement($result_or_value);
     $self->publish(
         MeasurementProvided->new(
-            sensor_name => $self->id,
+            sensor_id => $self->id,
             measurement => $self->latest_measurement
         )
     );

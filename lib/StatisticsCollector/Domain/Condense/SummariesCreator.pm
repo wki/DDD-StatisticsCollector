@@ -17,18 +17,18 @@ StatisticsCollector::Domain::Condense::SummariesCreator - a summaries factory
 
 =cut
 
-=head2 new_summaries ( $sensor_name )
+=head2 new_summaries ( $sensor_id )
 
 create a new summaries object for a sensor
 
 =cut
 
 sub new_summaries {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
     return Summaries->new(
-        id          => $sensor_name,
-        sensor_name => $sensor_name,
+        id          => $sensor_id,
+        sensor_id => $sensor_id,
     );
 }
 

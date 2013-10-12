@@ -78,7 +78,7 @@ on MeasurementProvided => sub {
     my ($self, $event) = @_;
 
     $self->check_alarm(
-        $event->sensor_name->name,
+        $event->sensor_id->name,
         $event->measurement
     );
 };
@@ -87,7 +87,7 @@ on MeasurementProvided => sub {
 
 =cut
 
-=head2 check_alarm ( $sensor_name, $measurement )
+=head2 check_alarm ( $sensor_id, $measurement )
 
 check the measurement reported by a given sensor against all matching rules.
 Raise an alarm if the measurement is not satisfied by the rule found or clear
@@ -100,15 +100,15 @@ a previously raised alarm if the rule is satisfied again.
 =cut
 
 sub check_alarm {
-    my ($self, $sensor_name, $measurement) = @_;
+    my ($self, $sensor_id, $measurement) = @_;
     
-    my $alarm = $self->all_alarms->for_sensor($sensor_name)
-        // $self->alarm_creator->new_alarm($sensor_name);
+    my $alarm = $self->all_alarms->for_sensor($sensor_id)
+        // $self->alarm_creator->new_alarm($sensor_id);
     
-    my $rule = $self->all_rules->for_sensor($sensor_name);
+    my $rule = $self->all_rules->for_sensor($sensor_id);
     
     if (!$rule) {
-        warn "no rule found for sensor '$sensor_name', omitting is_satisfied test";
+        warn "no rule found for sensor '$sensor_id', omitting is_satisfied test";
         return;
     }
     

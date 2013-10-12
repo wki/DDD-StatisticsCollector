@@ -47,7 +47,7 @@ note 'loading';
 {
     my $s_xyz = $all_sensors->by_name('x/y/z');
     
-    is $s_xyz->sensor_name->name, 'x/y/z', 'sensor loaded';
+    is $s_xyz->sensor_id->name, 'x/y/z', 'sensor loaded';
     is $s_xyz->latest_measurement->result, 42, 'measurement';
 }
 

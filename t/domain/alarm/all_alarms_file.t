@@ -22,12 +22,12 @@ my $all_alarms = $class->new(
 
 my $a_xyz = Alarm->new(
     id          => 'x/y/z',
-    sensor_name => 'x/y/z',
+    sensor_id => 'x/y/z',
 );
 
 my $a_abc = Alarm->new(
     id          => 'a/b/c',
-    sensor_name => 'a/b/c',
+    sensor_id => 'a/b/c',
 );
 
 note 'internal methods';
@@ -52,7 +52,7 @@ note 'loading';
 {
     my $a_xyz = $all_alarms->for_sensor('x/y/z');
     
-    is $a_xyz->sensor_name->name, 'x/y/z', 'alarm loaded';
+    is $a_xyz->sensor_id->name, 'x/y/z', 'alarm loaded';
 }
 
 done_testing;

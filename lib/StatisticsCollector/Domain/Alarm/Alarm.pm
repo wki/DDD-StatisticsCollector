@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Alarm::Alarm;
 use Carp;
 use Moose;
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use aliased 'StatisticsCollector::Domain::Alarm::AlarmRaised';
 use aliased 'StatisticsCollector::Domain::Alarm::AlarmCleared';
@@ -30,18 +30,18 @@ a sensor
 
 =cut
 
-=head2 sensor_name
+=head2 sensor_id
 
 =cut
 
-has sensor_name => (
+has sensor_id => (
     is         => 'ro',
-    isa        => 'SensorName', # the Moose type
+    isa        => 'SensorId', # the Moose type
     coerce     => 1,
     lazy_build => 1,
 );
 
-sub _build_sensor_name { $_[0]->id }
+sub _build_sensor_id { $_[0]->id }
 
 =head2 alarm_info
 
@@ -91,7 +91,7 @@ sub raise {
     
     $self->publish(
         AlarmRaised->new(
-            sensor_name => $self->id,
+            sensor_id => $self->id,
             alarm_info  => $self->alarm_info,
         )
     );
@@ -116,7 +116,7 @@ sub clear {
     
     $self->publish(
         AlarmCleared->new(
-            sensor_name => $self->id,
+            sensor_id => $self->id,
             alarm_info  => $cleared_alarm_info,
         )
     );

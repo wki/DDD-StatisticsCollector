@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'StatisticsCollector::Domain::Condense::AllSummaries';
 
-our %summaries_for; # sensor_name => summaries aggregate
+our %summaries_for; # sensor_id => summaries aggregate
 
 =head1 NAME
 
@@ -21,16 +21,16 @@ see StatisticsCollector::Domain::Condense::AllSummaries
 
 =cut
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load summaries for a sensor identified by its name
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
-    return $summaries_for{$sensor_name};
+    return $summaries_for{$sensor_id};
 }
 
 =head2 save ( $summaries )

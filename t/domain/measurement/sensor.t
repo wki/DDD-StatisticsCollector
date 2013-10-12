@@ -26,7 +26,7 @@ on '2012-12-10 23:13:45' => sub {
     
     $sensor->provide_measurement_result(50);
     
-    is $sensor->sensor_name->name, 'xxx/yy/z', 'sensor name saved';
+    is $sensor->sensor_id->name, 'xxx/yy/z', 'sensor name saved';
     is $sensor->latest_measurement->result, 50, 'measurement result saved';
 
     is $sensor->event_publisher->_nr_events, 1, 'one event waiting';

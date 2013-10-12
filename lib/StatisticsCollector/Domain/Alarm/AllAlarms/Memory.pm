@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'StatisticsCollector::Domain::Alarm::AllAlarms';
 
-our %alarm_for; # sensor_name => alarm aggregate
+our %alarm_for; # sensor_id => alarm aggregate
 
 =head1 NAME
 
@@ -25,16 +25,16 @@ only valid for a single process
 
 =cut
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load alarm for a sensor identified by its name
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
-    return $alarm_for{$sensor_name};
+    return $alarm_for{$sensor_id};
 }
 
 =head2 save ( $alarm )

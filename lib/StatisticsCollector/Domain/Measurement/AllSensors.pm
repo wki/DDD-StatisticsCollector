@@ -48,7 +48,7 @@ sub filtered {
     # must return SensorInfo[]
 }
 
-=head2 by_name ( $sensor_name )
+=head2 by_name ( $sensor_id )
 
 give back a senor uniquely identified by a given name. If no sensor can be
 found with the requested name, C<undef> is returned
@@ -56,7 +56,7 @@ found with the requested name, C<undef> is returned
 =cut
 
 sub by_name {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
 
     die 'abstract class';
 

@@ -22,7 +22,7 @@ my $all_summaries = $class->new(
 
 my $s_xyz = Summaries->new(
     id          => 'x/y/z',
-    sensor_name => 'x/y/z',
+    sensor_id => 'x/y/z',
 );
 
 note 'internal methods';
@@ -49,7 +49,7 @@ note 'loading';
 {
     my $s_xyz = $all_summaries->for_sensor('x/y/z');
 
-    is $s_xyz->sensor_name->name, 'x/y/z', 'summaries loaded';
+    is $s_xyz->sensor_id->name, 'x/y/z', 'summaries loaded';
 }
 
 done_testing;

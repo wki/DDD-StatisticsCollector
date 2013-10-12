@@ -19,12 +19,12 @@ my $all_summaries = $class->new(
 
 my $s_xyz = Summaries->new(
     id          => 'x/y/z',
-    sensor_name => 'x/y/z',
+    sensor_id => 'x/y/z',
 );
 
 my $s_abc = Summaries->new(
     id          => 'a/b/c',
-    sensor_name => 'a/b/c',
+    sensor_id => 'a/b/c',
 );
 
 note 'retrieve';
@@ -47,7 +47,7 @@ note 'save';
 {
     my $s_uvw = Summaries->new(
         id          => 'u/v/w',
-        sensor_name => 'u/v/w',
+        sensor_id => 'u/v/w',
     );
 
     $all_summaries->save($s_uvw);

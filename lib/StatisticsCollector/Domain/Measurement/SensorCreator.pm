@@ -17,18 +17,18 @@ StatisticsCollector::Domain::Measurement::SensorCreator - a sensor factory
 
 =cut
 
-=head2 new_sensor ( $sensor_name )
+=head2 new_sensor ( $sensor_id )
 
 create a new sensor with a name
 
 =cut
 
 sub new_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
     return Sensor->new(
-        id          => $sensor_name,
-        sensor_name => $sensor_name,
+        id          => $sensor_id,
+        sensor_id => $sensor_id,
     );
 }
 

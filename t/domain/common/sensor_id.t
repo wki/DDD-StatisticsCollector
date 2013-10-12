@@ -4,7 +4,7 @@ use vars '$class';
 use Test::More;
 use Test::Exception;
 
-BEGIN { $class = 'StatisticsCollector::Domain::Common::SensorName' }
+BEGIN { $class = 'StatisticsCollector::Domain::Common::SensorId' }
 
 use ok $class;
 
@@ -36,7 +36,7 @@ note 'type constraint';
         use Moose;
         has n => (
             is     => 'rw',
-            isa    => 'SensorName',
+            isa    => 'SensorId',
             coerce => 1,
         );
     }
@@ -48,22 +48,22 @@ note 'type constraint';
 
 note 'immutability';
 {
-    my $sensor_name = $class->new(name => 'a/b/c');
+    my $sensor_id = $class->new(name => 'a/b/c');
     
-    dies_ok { $sensor_name->name('c/d/e') }
+    dies_ok { $sensor_id->name('c/d/e') }
         'name attribute is immutable';
 }
 
 note 'mask matching';
 {
-    my $sensor_name = $class->new(name => 'a/b/c');
+    my $sensor_id = $class->new(name => 'a/b/c');
     
-    ok !$sensor_name->matches_mask,           'empty mask does never match';
-    ok  $sensor_name->matches_mask('a/b/c'),  'exact mask matches';
-    ok  $sensor_name->matches_mask('*/b/c'),  'single wildcard matches';
-    ok  $sensor_name->matches_mask('*/*/c'),  'double wildcard matches';
-    ok  $sensor_name->matches_mask('*/*/*'),  'triple wildcard matches';
-    ok !$sensor_name->matches_mask('*/*/d'),  'wrong mask fails';
+    ok !$sensor_id->matches_mask,           'empty mask does never match';
+    ok  $sensor_id->matches_mask('a/b/c'),  'exact mask matches';
+    ok  $sensor_id->matches_mask('*/b/c'),  'single wildcard matches';
+    ok  $sensor_id->matches_mask('*/*/c'),  'double wildcard matches';
+    ok  $sensor_id->matches_mask('*/*/*'),  'triple wildcard matches';
+    ok !$sensor_id->matches_mask('*/*/d'),  'wrong mask fails';
 }
 
 done_testing;

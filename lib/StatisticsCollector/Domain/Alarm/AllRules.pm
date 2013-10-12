@@ -18,14 +18,14 @@ repository
 
 =cut
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load the best rule matching a sensor mask
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
     die 'abstract class'
 }

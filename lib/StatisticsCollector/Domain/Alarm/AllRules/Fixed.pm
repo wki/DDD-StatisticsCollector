@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Alarm::AllRules::Fixed;
 use Moose;
 use Module::Load;
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use aliased 'StatisticsCollector::Domain::Alarm::Rule';
 use namespace::autoclean;
 
@@ -63,10 +63,10 @@ load the best rule matching a sensor mask
 sub for_sensor {
     my ($self, $name) = @_;
     
-    my $sensor_name = SensorName->new( name => $name );
+    my $sensor_id = SensorId->new( name => $name );
     
     foreach my $rule ($self->all_rules) {
-        return $rule if $sensor_name->matches_mask($rule->sensor_mask);
+        return $rule if $sensor_id->matches_mask($rule->sensor_mask);
     }
     
     return; # or die?

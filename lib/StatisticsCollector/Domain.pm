@@ -53,8 +53,7 @@ the core comain -- handles the raw measurement results provided by sensors
 
 subdomain measurement => (
     isa => 'Measurement',
-    dependencies => {
-    },
+    dependencies => {},
 );
 
 =head2 condense
@@ -66,8 +65,7 @@ like hourly or daily periods
 
 subdomain condense => (
     isa => 'Condense',
-    dependencies => {
-    },
+    dependencies => {},
 );
 
 =head2 alarm
@@ -78,8 +76,18 @@ cares about discovery and clearing of alarm situations
 
 subdomain alarm => (
     isa => 'Alarm',
-    dependencies => {
-    },
+    dependencies => {},
+);
+
+=head2 notification
+
+notifies people when alarms are raised or cleared
+
+=cut
+
+subdomain notification => (
+    isa => 'Notification',
+    dependencies => {},
 );
 
 =head1 AUTHOR

@@ -48,7 +48,7 @@ note 'event handling';
 {
     $domain->publish(
         MeasurementProvided->new(
-            sensor_name => 'a/b/c',
+            sensor_id => 'a/b/c',
             measurement => 32,
         ),
     );

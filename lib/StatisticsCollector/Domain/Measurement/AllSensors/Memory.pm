@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'StatisticsCollector::Domain::Measurement::AllSensors';
 
-our %sensor_for; # sensor_name => sensor aggregate
+our %sensor_for; # sensor_id => sensor aggregate
 
 =head1 NAME
 
@@ -41,7 +41,7 @@ sub filtered {
     return wantarray ? @filtered : \@filtered;
 }
 
-=head2 by_name ( $sensor_name )
+=head2 by_name ( $sensor_id )
 
 give back a senor uniquely identified by a given name. If no sensor can be
 found with the requested name, C<undef> is returned
@@ -49,9 +49,9 @@ found with the requested name, C<undef> is returned
 =cut
 
 sub by_name {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
 
-    return $sensor_for{$sensor_name};
+    return $sensor_for{$sensor_id};
 }
 
 =head2 save ( $sensor )

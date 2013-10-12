@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Measurement::MeasurementProvided;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use namespace::autoclean;
 
 extends 'DDD::Event';
@@ -19,16 +19,16 @@ when a MeasureResult has been provided
 
 =cut
 
-=head2 sensor_name
+=head2 sensor_id
 
 holds the sensor's name as a tree-part string delimited with slashes like
 C<<< a/b/c >>>
 
 =cut
 
-has sensor_name => (
+has sensor_id => (
     is       => 'ro',
-    isa      => 'SensorName', # the Moose type
+    isa      => 'SensorId', # the Moose type
     coerce   => 1,  # will allow a string here
     required => 1,
 );

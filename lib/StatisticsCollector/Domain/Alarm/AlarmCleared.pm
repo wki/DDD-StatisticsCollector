@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Alarm::AlarmCleared;
 use Moose;
 use DateTime;
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use aliased 'StatisticsCollector::Domain::Common::AlarmInfo';
 use namespace::autoclean;
 
@@ -13,9 +13,9 @@ has cleared_on => (
     default => sub { $_[0]->_now },
 );
 
-has sensor_name => (
+has sensor_id => (
     is       => 'ro',
-    isa      => 'SensorName', # the Moose Type
+    isa      => 'SensorId', # the Moose Type
     coerce   => 1,
     required => 1,
 );

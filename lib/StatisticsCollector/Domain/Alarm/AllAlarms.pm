@@ -25,14 +25,14 @@ for retrieving and saving Alarms
 
 =cut
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load alarm for a sensor identified by its name
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
     die 'abstract class';
 }

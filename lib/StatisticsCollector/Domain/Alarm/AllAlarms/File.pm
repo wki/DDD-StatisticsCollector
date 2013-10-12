@@ -25,16 +25,16 @@ of an alarm repository
 
 sub _build_file_suffix { 'alarm' }
 
-=head2 for_sensor ( $sensor_name )
+=head2 for_sensor ( $sensor_id )
 
 load alarm for a sensor identified by its name
 
 =cut
 
 sub for_sensor {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
     
-    return Alarm->load($self->_file($sensor_name)->stringify);
+    return Alarm->load($self->_file($sensor_id)->stringify);
 }
 
 =head2 save ( $alarm )

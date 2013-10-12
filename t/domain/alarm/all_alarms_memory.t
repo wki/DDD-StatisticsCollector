@@ -19,12 +19,12 @@ my $all_alarms = $class->new(
 
 my $a_xyz = Alarm->new(
     id          => 'x/y/z',
-    sensor_name => 'x/y/z',
+    sensor_id => 'x/y/z',
 );
 
 my $a_abc = Alarm->new(
     id          => 'a/b/c',
-    sensor_name => 'a/b/c',
+    sensor_id => 'a/b/c',
 );
 
 note 'retrieve';
@@ -47,7 +47,7 @@ note 'save';
 {
     my $a_uvw = Alarm->new(
         id          => 'u/v/w',
-        sensor_name => 'u/v/w',
+        sensor_id => 'u/v/w',
     );
 
     $all_alarms->save($a_uvw);

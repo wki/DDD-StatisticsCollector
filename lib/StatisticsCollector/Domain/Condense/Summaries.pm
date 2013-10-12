@@ -1,7 +1,7 @@
 package StatisticsCollector::Domain::Condense::Summaries;
 use Moose;
 use aliased 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
-use aliased 'StatisticsCollector::Domain::Common::SensorName';
+use aliased 'StatisticsCollector::Domain::Common::SensorId';
 use aliased 'StatisticsCollector::Domain::Common::Summary';
 use namespace::autoclean;
 
@@ -20,18 +20,18 @@ summaries for a sensor
 
 =cut
 
-=head2 sensor_name
+=head2 sensor_id
 
 =cut
 
-has sensor_name => (
+has sensor_id => (
     is         => 'ro',
-    isa        => 'SensorName', # the Moose class
+    isa        => 'SensorId', # the Moose class
     coerce     => 1,
     lazy_build => 1,
 );
 
-sub _build_sensor_name { $_[0]->id }
+sub _build_sensor_id { $_[0]->id }
 
 =head2 hourly_summaries
 

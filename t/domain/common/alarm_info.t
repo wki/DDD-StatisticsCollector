@@ -20,6 +20,7 @@ note 'instantiation';
         is $alarm_info1->raised_on->ymd, '2012-12-23', 'raised date';
         is $alarm_info1->raised_on->hms, '23:34:45',   'raised time';
         ok !$alarm_info1->is_cleared, 'not cleared';
+        
     };
     
     on '2012-12-24 01:23:34' => sub {

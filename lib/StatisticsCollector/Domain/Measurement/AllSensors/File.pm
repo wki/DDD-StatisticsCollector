@@ -39,7 +39,7 @@ sub filtered {
     return wantarray ? @filtered : \@filtered;
 }
 
-=head2 by_name ( $sensor_name )
+=head2 by_name ( $sensor_id )
 
 give back a senor uniquely identified by a given name. If no sensor can be
 found with the requested name, C<undef> is returned
@@ -47,9 +47,9 @@ found with the requested name, C<undef> is returned
 =cut
 
 sub by_name {
-    my ($self, $sensor_name) = @_;
+    my ($self, $sensor_id) = @_;
 
-    return Sensor->load($self->_file($sensor_name)->stringify);
+    return Sensor->load($self->_file($sensor_id)->stringify);
 }
 
 =head2 save ( $sensor )

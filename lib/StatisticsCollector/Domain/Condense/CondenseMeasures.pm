@@ -65,7 +65,7 @@ on MeasurementProvided => sub {
     my ($self, $event) = @_;
 
     $self->add_measurement(
-        $event->sensor_name->name,
+        $event->sensor_id->name,
         $event->measurement
     );
 };
@@ -74,17 +74,17 @@ on MeasurementProvided => sub {
 
 =cut
 
-=head2 add_measurement ( $sensor_name, $measurement )
+=head2 add_measurement ( $sensor_id, $measurement )
 
 add a given measurement to a sensor
 
 =cut
 
 sub add_measurement {
-    my ($self, $sensor_name, $measurement) = @_;
+    my ($self, $sensor_id, $measurement) = @_;
 
-    my $summaries = $self->all_summaries->for_sensor($sensor_name)
-        // $self->summaries_creator->new_summaries($sensor_name);
+    my $summaries = $self->all_summaries->for_sensor($sensor_id)
+        // $self->summaries_creator->new_summaries($sensor_id);
 
     $summaries->add_measurement($measurement);
 
