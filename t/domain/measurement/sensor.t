@@ -1,32 +1,35 @@
 use strict;
 use warnings;
 use FindBin;
+use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
 
-use ok 'StatisticsCollector::Domain::Measurement::Sensor';
+BEGIN { $class = 'StatisticsCollector::Domain::Measurement::Sensor' }
 
-my $d = MockDomain->new;
+use ok $class;
 
-my $s = StatisticsCollector::Domain::Measurement::Sensor->new(
-    domain             => $d,
+my $domain = MockDomain->new;
+
+my $sensor = $class->new(
+    domain             => $domain,
     id                 => 'xxx/yy/z',
     latest_measurement => 100,
 );
 
 note 'provide measurement';
 on '2012-12-10 23:13:45' => sub {
-    is $s->event_publisher->_nr_events, 0, 'no events yet';
+    is $sensor->event_publisher->_nr_events, 0, 'no events yet';
     
-    $s->provide_measurement_result(50);
+    $sensor->provide_measurement_result(50);
     
-    is $s->sensor_name->name, 'xxx/yy/z', 'sensor name saved';
-    is $s->latest_measurement->result, 50, 'measurement result saved';
+    is $sensor->sensor_name->name, 'xxx/yy/z', 'sensor name saved';
+    is $sensor->latest_measurement->result, 50, 'measurement result saved';
 
-    is $s->event_publisher->_nr_events, 1, 'one event waiting';
+    is $sensor->event_publisher->_nr_events, 1, 'one event waiting';
 };
 
 done_testing;

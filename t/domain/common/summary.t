@@ -1,27 +1,24 @@
 use strict;
 use warnings;
-use vars '$summary', '$result';
+use vars '$class';
 use DateTime;
 use Test::More;
 use Test::Exception;
 use Test::MockDateTime;
+use aliased 'StatisticsCollector::Domain::Common::Measurement';
 
-BEGIN { 
-    $result  = 'StatisticsCollector::Domain::Common::Measurement';
-    $summary = 'StatisticsCollector::Domain::Common::Summary';
-};
+BEGIN { $class = 'StatisticsCollector::Domain::Common::Summary' }
 
-use ok $result;
-use ok $summary;
+use ok $class;
 
 # TODO: note 'failing construction';
 
 note 'succeeding construction';
 on '2012-12-10 21:13:45' => sub {
-    my $r1 = $result->new(result => 10);
-    my $r2 = $result->new(result => 20);
+    my $measurement1 = Measurement->new(result => 10);
+    my $measurement2 = Measurement->new(result => 20);
     
-    my $s1 = $summary->from_measurement($r1);
+    my $s1 = $class->from_measurement($measurement1);
     is $s1->from->hms,
         '21:00:00',
         's1: from time is truncated';
@@ -34,7 +31,7 @@ on '2012-12-10 21:13:45' => sub {
     is $s1->sum, 10, 'sum is 10';
     is $s1->nr_values, 1, 'nr_values is 1';
     
-    my $s2 = $s1->append_measurement($r2);
+    my $s2 = $s1->append_measurement($measurement2);
     isnt $s1, $s2, 'new value object created';
     
     is $s2->from->hms,

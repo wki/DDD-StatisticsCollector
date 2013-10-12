@@ -8,28 +8,28 @@ use Test::Exception;
 
 use ok 'StatisticsCollector::Domain::Condense::SummariesCreator';
 
-my $d = MockDomain->new;
-my $c = StatisticsCollector::Domain::Condense::SummariesCreator->new(
-    domain => $d,
+my $domain = MockDomain->new;
+my $summaries_creator = StatisticsCollector::Domain::Condense::SummariesCreator->new(
+    domain => $domain,
 );
 
 note 'failing creation';
 {
-    dies_ok { $c->new_summaries }
+    dies_ok { $summaries_creator->new_summaries }
         'creating an unnamed summaries dies';
     
-    dies_ok { $c->new_ssummaries('') }
+    dies_ok { $summaries_creator->new_ssummaries('') }
         'creating a summaries with empty name dies';
 
-    dies_ok { $c->new_summaries('abc') }
+    dies_ok { $summaries_creator->new_summaries('abc') }
         'creating a illegal-named summaries dies';
 }
 
 note 'succeeding creation';
 {
-    my $s = $c->new_summaries('a/bb/ccc');
+    my $summaries = $summaries_creator->new_summaries('a/bb/ccc');
     
-    isa_ok $s, 'StatisticsCollector::Domain::Condense::Summaries';
+    isa_ok $summaries, 'StatisticsCollector::Domain::Condense::Summaries';
 }
 
 done_testing;

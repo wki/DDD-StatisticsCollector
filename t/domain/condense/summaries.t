@@ -4,23 +4,22 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use Test::More;
-# use Test::Exception;
 use Test::MockDateTime;
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
 
 use ok 'StatisticsCollector::Domain::Condense::Summaries';
 
-my $d = MockDomain->new;
+my $domain = MockDomain->new;
 
-my $s = StatisticsCollector::Domain::Condense::Summaries->new(
-    domain => $d,
+my $summaries = StatisticsCollector::Domain::Condense::Summaries->new(
+    domain => $domain,
     id     => 'xxx/yy/z',
 );
 
 note 'initial state';
 {
-    is_deeply $s->hourly_summaries, [], 'no hours';
-    is_deeply $s->daily_summaries,  [], 'no days';
+    is_deeply $summaries->hourly_summaries, [], 'no hours';
+    is_deeply $summaries->daily_summaries,  [], 'no days';
 }
 
 my @testcases = (
@@ -62,25 +61,25 @@ note 'add values';
 foreach my $testcase (@testcases) {
     my $date = "$testcase->{ymd} $testcase->{hms}";
     on $date  => sub {
-        $s->add_measurement(
+        $summaries->add_measurement(
             Measurement->new(result => $testcase->{measurement_result})
         );
         
         note $date;
         
-        # note explain $s->pack;
+        # note explain $summaries->pack;
         
         my $tomorrow = DateTime->now->truncate(to => 'day')->add(days => 1)->ymd;
         
-        is scalar @{$s->hourly_summaries},
+        is scalar @{$summaries->hourly_summaries},
             $testcase->{nr_hours},
             "$date: $testcase->{nr_hours} hour(s)";
 
-        is scalar @{$s->daily_summaries},
+        is scalar @{$summaries->daily_summaries},
             $testcase->{nr_days},
             "$date: $testcase->{nr_days} day(s)";
         
-        my $last_hour = $s->hourly_summaries->[-1];
+        my $last_hour = $summaries->hourly_summaries->[-1];
         is $last_hour->from->ymd, $testcase->{ymd},        "$date: from h ymd";
         is $last_hour->from->hms, $testcase->{h_from_hms}, "$date: from h hms";
         is $last_hour->to->ymd,   $testcase->{ymd},        "$date: to h ymd";
@@ -91,7 +90,7 @@ foreach my $testcase (@testcases) {
         is $last_hour->sum,       $testcase->{h_sum},      "$date: h sum";
         is $last_hour->nr_values, $testcase->{h_nr},       "$date: h nr";
 
-        my $last_day = $s->daily_summaries->[-1];
+        my $last_day = $summaries->daily_summaries->[-1];
         is $last_day->from->ymd, $testcase->{ymd},        "$date: from d ymd";
         is $last_day->from->hms, '00:00:00',              "$date: from d hms";
         is $last_day->to->ymd,   $tomorrow,               "$date: to d ymd";

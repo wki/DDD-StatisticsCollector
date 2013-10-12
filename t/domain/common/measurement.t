@@ -21,17 +21,17 @@ note 'failing construction';
 
 note 'succeessful construction';
 on '2012-12-10 23:13:45' => sub {
-    my $c = $class->new(result => 42);
+    my $measurement = $class->new(result => 42);
     
-    is $c->measured_on->ymd,
+    is $measurement->measured_on->ymd,
         '2012-12-10',
         'measure date';
 
-    is $c->measured_on->hms,
+    is $measurement->measured_on->hms,
         '23:13:45',
         'measure time';
     
-    is $c->result,
+    is $measurement->result,
         42,
         'result is 42';
 };

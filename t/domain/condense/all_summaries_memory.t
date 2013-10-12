@@ -12,9 +12,9 @@ BEGIN { $class = 'StatisticsCollector::Domain::Condense::AllSummaries::Memory' }
 
 use ok $class;
 
-my $d = MockDomain->new;
-my $s = $class->new(
-    domain => $d,
+my $domain = MockDomain->new;
+my $all_summaries = $class->new(
+    domain => $domain,
 );
 
 my $s_xyz = Summaries->new(
@@ -34,11 +34,11 @@ note 'retrieve';
         'x/y/z' => $s_xyz,
     );
 
-    is $s->for_sensor('u/v/w'),
+    is $all_summaries->for_sensor('u/v/w'),
         undef,
         'unknown sensor yields undef';
 
-    is $s->for_sensor('a/b/c'),
+    is $all_summaries->for_sensor('a/b/c'),
         $s_abc,
         'a/b/c retrieved';
 }
@@ -50,8 +50,8 @@ note 'save';
         sensor_name => 'u/v/w',
     );
 
-    $s->save($s_uvw);
-    is $s->for_sensor('u/v/w'),
+    $all_summaries->save($s_uvw);
+    is $all_summaries->for_sensor('u/v/w'),
         $s_uvw,
         'u/v/w saved';
 }

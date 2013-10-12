@@ -12,14 +12,14 @@ use ok 'StatisticsCollector::Domain::Alarm::Condition::Age';
 
 note 'basic behavior';
 {
-    my $c = StatisticsCollector::Domain::Alarm::Condition->new(
+    my $condition = StatisticsCollector::Domain::Alarm::Condition->new(
         name => 'test',
         value => 0,
     );
     
-    can_ok $c, 'is_satisfied';
+    can_ok $condition, 'is_satisfied';
     
-    dies_ok { $c->is_satisfied } 'is_satisfied() dies';
+    dies_ok { $condition->is_satisfied } 'is_satisfied() dies';
 }
 
 note 'min/max conditions';

@@ -11,20 +11,20 @@ BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllRules::Fixed' }
 
 use ok $class;
 
-my $d = MockDomain->new;
-my $a = $class->new(domain => $d);
+my $domain = MockDomain->new;
+my $all_rules = $class->new(domain => $domain);
 
 note 'basic behavior';
 {
-    can_ok $a, 'for_sensor';
-    isa_ok $a, 'StatisticsCollector::Domain::Alarm::AllRules';
+    can_ok $all_rules, 'for_sensor';
+    isa_ok $all_rules, 'StatisticsCollector::Domain::Alarm::AllRules';
 }
 
 note 'rule storage';
 {
-    is $a->nr_rules, 3, 'rules read';
+    is $all_rules->nr_rules, 3, 'rules read';
     
-    foreach my $rule ($a->all_rules) {
+    foreach my $rule ($all_rules->all_rules) {
         isa_ok $rule, 'StatisticsCollector::Domain::Alarm::Rule';
     }
 }
@@ -38,10 +38,10 @@ note 'rule loading';
     );
     
     foreach my $testcase (@testcases) {
-        isa_ok $a->for_sensor($testcase->{sensor}),
+        isa_ok $all_rules->for_sensor($testcase->{sensor}),
             'StatisticsCollector::Domain::Alarm::Rule';
         
-        is $a->for_sensor($testcase->{sensor})->name,
+        is $all_rules->for_sensor($testcase->{sensor})->name,
             $testcase->{rule_name},
             "$testcase->{sensor} rule name";
     }

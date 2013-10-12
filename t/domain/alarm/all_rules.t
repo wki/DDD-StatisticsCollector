@@ -11,11 +11,11 @@ BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllRules' }
 
 use ok $class;
 
-my $d = MockDomain->new;
-my $a = $class->new(domain => $d);
+my $domain = MockDomain->new;
+my $all_rules = $class->new(domain => $domain);
 
-can_ok $a, 'for_sensor';
+can_ok $all_rules, 'for_sensor';
 
-dies_ok { $a->for_sensor } 'for_sensor() dies';
+dies_ok { $all_rules->for_sensor } 'for_sensor() dies';
 
 done_testing;
