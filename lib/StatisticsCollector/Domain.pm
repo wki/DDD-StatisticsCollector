@@ -1,5 +1,6 @@
 package StatisticsCollector::Domain;
 use DDD::Domain;
+use Path::Class;
 
 =head1 NAME
 
@@ -13,17 +14,24 @@ StatisticsCollector::Domain - StatisticsCollector business domain
 
 =cut
 
-=head2 EventPublisher / EventProcessor
+# =head2 EventPublisher / EventProcessor
+# 
+# =cut
+# 
+# has event_publisher => (
+#     is      => 'ro',
+#     isa     => 'DDD::EventPublisher',
+#     handles => [ qw(publish add_listener) ],
+# );
+
+
+=head2 notifier
+
+an instance of Infrastructure::Notifier responsible for sending out
+notifications triggered by raised or cleared alarms
 
 =cut
 
-has event_publisher => (
-    is      => 'ro',
-    isa     => 'DDD::EventPublisher',
-    handles => [ qw(publish add_listener) ],
-);
-
-# Notifier
 has notifier => (
     is         => 'ro',
     isa        => 'Object', # 'StatisticsCollector::Infrastruture::Notifier',
@@ -39,7 +47,16 @@ sub _build_notifier {
 
 # Schema (in case of DBIx::Class)
 
-# Filesystem/Root Directory (in case of File Storage)
+=head2 storage_dir
+
+a directory acting as the root directory for file based storage
+
+=cut
+
+has storage_dir => (
+    is  => 'ro',
+    isa => 'Path::Class::Dir',
+);
 
 =head1 SUBDOMAINS
 
@@ -53,7 +70,6 @@ the core comain -- handles the raw measurement results provided by sensors
 
 subdomain measurement => (
     isa => 'Measurement',
-    dependencies => {},
 );
 
 =head2 condense
@@ -65,7 +81,6 @@ like hourly or daily periods
 
 subdomain condense => (
     isa => 'Condense',
-    dependencies => {},
 );
 
 =head2 alarm
@@ -76,7 +91,6 @@ cares about discovery and clearing of alarm situations
 
 subdomain alarm => (
     isa => 'Alarm',
-    dependencies => {},
 );
 
 =head2 notification
@@ -87,7 +101,6 @@ notifies people when alarms are raised or cleared
 
 subdomain notification => (
     isa => 'Notification',
-    dependencies => {},
 );
 
 =head1 AUTHOR

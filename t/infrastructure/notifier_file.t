@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use vars '$class';
+use Path::Class;
 use Test::More;
 use Test::MockDateTime;
 

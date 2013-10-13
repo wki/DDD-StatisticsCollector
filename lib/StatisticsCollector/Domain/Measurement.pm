@@ -1,13 +1,15 @@
 package StatisticsCollector::Domain::Measurement;
-use DDD::Domain;
+use DDD::Domain; # FIXME: SubDomain
 
 repository all_sensors => (
-    isa          => 'AllSensors::Memory',
-    
-    # dependencies => {
-    #     # later for DBIC we will need:
-    #     # schema => dep('/schema'),
-    # },
+    isa          => 'AllSensors::File',
+    dependencies => {
+        dir => dep('/storage_dir'),
+    },
+);
+
+factory sensor_creator => (
+    isa => 'SensorCreator',
 );
 
 1;
