@@ -49,7 +49,10 @@ found with the requested name, C<undef> is returned
 sub by_name {
     my ($self, $sensor_id) = @_;
 
-    return Sensor->load($self->_file($sensor_id)->stringify);
+    my $file = $self->_file($sensor_id)->stringify;
+    return if !-f $file;
+    
+    return Sensor->load($file);
 }
 
 =head2 save ( $sensor )

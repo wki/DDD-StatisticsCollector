@@ -12,7 +12,7 @@ factory summaries_creator => (
     isa => 'SummariesCreator',
 );
 
-service condense_mesaures => (
+service condense_measures => (
     isa          => 'CondenseMeasures',
     dependencies => {
         all_summaries     => dep('all_summaries'),

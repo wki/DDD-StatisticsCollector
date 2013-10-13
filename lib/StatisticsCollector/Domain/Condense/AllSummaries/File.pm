@@ -33,8 +33,11 @@ load summaries for a sensor identified by its name
 
 sub for_sensor {
     my ($self, $sensor_id) = @_;
-    
-    return Summaries->load($self->_file($sensor_id)->stringify);
+
+    my $file = $self->_file($sensor_id)->stringify;
+    return if !-f $file;
+
+    return Summaries->load($file);
 }
 
 =head2 save ( $summaries )
@@ -45,7 +48,7 @@ save a summary
 
 sub save {
     my ($self, $summaries) = @_;
-    
+
     $summaries->store($self->_file($summaries->id)->stringify);
 }
 

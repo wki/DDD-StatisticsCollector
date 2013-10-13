@@ -64,11 +64,15 @@ measurement reported by this event into the summaries for this sensor.
 on MeasurementProvided => sub {
     my ($self, $event) = @_;
 
+    warn "caught MeasurementProvided";
+    
     $self->add_measurement(
         $event->sensor_id->name,
         $event->measurement
     );
 };
+
+warn "CondenseMeasures loaded";
 
 =head1 METHODS
 

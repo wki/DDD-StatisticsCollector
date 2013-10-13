@@ -14,17 +14,6 @@ StatisticsCollector::Domain - StatisticsCollector business domain
 
 =cut
 
-# =head2 EventPublisher / EventProcessor
-# 
-# =cut
-# 
-# has event_publisher => (
-#     is      => 'ro',
-#     isa     => 'DDD::EventPublisher',
-#     handles => [ qw(publish add_listener) ],
-# );
-
-
 =head2 notifier
 
 an instance of Infrastructure::Notifier responsible for sending out
@@ -101,6 +90,24 @@ notifies people when alarms are raised or cleared
 
 subdomain notification => (
     isa => 'Notification',
+);
+
+=head2 application
+
+the application currently modelled as a subdomain
+
+### FIXME: create a keyword, usage like:
+
+    application (
+        isa => 'Application',
+    );
+    
+    application;
+
+=cut
+
+subdomain application => (
+    isa => 'Application',
 );
 
 =head1 AUTHOR
