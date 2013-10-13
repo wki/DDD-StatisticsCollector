@@ -1,5 +1,5 @@
 package StatisticsCollector::Domain::Notification;
-use DDD::Domain;
+use DDD::Domain; # FIXME: SubDomain
 
 service message_composer => (
     isa => 'MessageComposer',

@@ -2,6 +2,7 @@ package StatisticsCollector::App::ProvideMeasurement;
 use Moose;
 use MooseX::Types::Path::Class 'Dir';
 use StatisticsCollector::Domain;
+use aliased 'StatisticsCollector::Infrastructure::Notifier::Memory' => 'Notifier';
 use namespace::autoclean;
 
 with 'MooseX::Getopt::Strict';
@@ -77,7 +78,7 @@ sub _build_domain {
     my $self = shift;
 
     StatisticsCollector::Domain->instance(
-        _debug      => 'build subscribe', # 'publish',
+        _debug      => 'subscribe process',
         storage_dir => $self->storage_dir,
     );
 }
@@ -88,9 +89,6 @@ sub _build_domain {
 
 sub run {
     my $self = shift;
-
-    # FIXME: only by accessing a subdomain-service it is instantiated.
-    # my $dummy = $self->domain->condense->condense_measures;
 
     $self->domain
          ->application->measurement

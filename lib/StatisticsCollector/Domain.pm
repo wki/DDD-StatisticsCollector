@@ -2,6 +2,9 @@ package StatisticsCollector::Domain;
 use DDD::Domain;
 use Path::Class;
 
+use aliased 'StatisticsCollector::Infrastructure::Notifier::Memory'
+    => 'Notifier';
+
 =head1 NAME
 
 StatisticsCollector::Domain - StatisticsCollector business domain
@@ -22,17 +25,10 @@ notifications triggered by raised or cleared alarms
 =cut
 
 has notifier => (
-    is         => 'ro',
-    isa        => 'Object', # 'StatisticsCollector::Infrastruture::Notifier',
-    lazy_build => 1,
+    is    => 'ro',
+    isa   => 'Object', # 'StatisticsCollector::Infrastruture::Notifier',
+    block => sub { Notifier->new },
 );
-
-# just a fallback. It is better to define a real notifier, however!
-sub _build_notifier {
-    require StatisticsCollector::Infrastructure::Notifier::Memory;
-    
-    StatisticsCollector::Infrastructure::Notifier::Memory->new
-}
 
 # Schema (in case of DBIx::Class)
 

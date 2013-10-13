@@ -34,7 +34,10 @@ load alarm for a sensor identified by its name
 sub for_sensor {
     my ($self, $sensor_id) = @_;
     
-    return Alarm->load($self->_file($sensor_id)->stringify);
+    my $file = $self->_file($sensor_id)->stringify;
+    return if !-f $file;
+    
+    return Alarm->load($file);
 }
 
 =head2 save ( $alarm )

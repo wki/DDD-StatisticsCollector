@@ -3,7 +3,8 @@ use DDD::Service;
 
 =head1 NAME
 
-StatisticsCollector::Domain::Notification::MessageComposer - blabla
+StatisticsCollector::Domain::Notification::MessageComposer - a service
+sending out notifations based on raised or cleared alarms
 
 =head1 SYNOPSIS
 
