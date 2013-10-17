@@ -1,6 +1,4 @@
-use strict;
-use warnings;
-use Test::More;
+use Test::Most;
 
 use ok 'StatisticsCollector::Domain::Alarm::AlarmRaised';
 use ok 'StatisticsCollector::Domain::Alarm::AlarmCleared';

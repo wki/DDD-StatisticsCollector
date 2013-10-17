@@ -13,6 +13,7 @@ Requirements (grouped by Subdomain)
 
     * A sensor has a unique 3-part name (eg. 'tokio/bathroom/temperature'),
   every part of the name must only contain ASCII letters, '-', '\_' or digits.
+      This name is named sensor\_id
 
     * A measurement consists of the result and the timestamp it was measured on.
 

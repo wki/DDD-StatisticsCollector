@@ -9,7 +9,7 @@ repository all_sensors => (
 );
 
 factory sensor_creator => (
-    isa => 'SensorCreator',
+    # isa => 'SensorCreator',
 );
 
 1;

@@ -1,9 +1,6 @@
-use strict;
-use warnings;
 use vars '$class';
 use DateTime;
-use Test::More;
-use Test::Exception;
+use Test::Most;
 use Test::MockDateTime;
 
 BEGIN { $class = 'StatisticsCollector::Domain::Common::Measurement' }
@@ -21,17 +18,17 @@ note 'failing construction';
 
 note 'succeessful construction';
 on '2012-12-10 23:13:45' => sub {
-    my $measurement = $class->new(result => 42);
+    my $c = $class->new(result => 42);
     
-    is $measurement->measured_on->ymd,
+    is $c->measured_on->ymd,
         '2012-12-10',
         'measure date';
 
-    is $measurement->measured_on->hms,
+    is $c->measured_on->hms,
         '23:13:45',
         'measure time';
     
-    is $measurement->result,
+    is $c->result,
         42,
         'result is 42';
 };

@@ -1,18 +1,12 @@
-use strict;
-use warnings;
-use vars '$class';
-use Path::Class;
-use Test::More;
+use Test::Most;
 use Test::MockDateTime;
 
-BEGIN { $class = 'StatisticsCollector::Infrastructure::Notifier::File' }
-
-use ok $class;
+use ok 'StatisticsCollector::Infrastructure::Notifier::File';
 
 my $dir  = Path::Class::tempdir(CLEANUP => 1);
 my $file = $dir->file('notification.dat');
 
-my $notifier = $class->new(
+my $n = StatisticsCollector::Infrastructure::Notifier::File->new(
     file => $file,
 );
 
@@ -20,7 +14,7 @@ ok !-f $file, 'message file initially empty';
 
 
 on '2013-02-03 12:34:45' => sub {
-    $notifier->notify('foo', 'blabla');
+    $n->notify('foo', 'blabla');
     
     is scalar $file->slurp,
         "[2013-02-03 12:34:45] foo: blabla\n",
@@ -29,7 +23,7 @@ on '2013-02-03 12:34:45' => sub {
 
 
 on '2013-02-04 08:09:10' => sub {
-    $notifier->notify('bar', 'blablubb');
+    $n->notify('bar', 'blablubb');
     
     is scalar $file->slurp,
         "[2013-02-03 12:34:45] foo: blabla\n". 

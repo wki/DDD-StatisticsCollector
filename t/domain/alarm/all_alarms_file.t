@@ -1,12 +1,10 @@
-use strict;
-use warnings;
 use FindBin;
 use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use aliased 'StatisticsCollector::Domain::Alarm::Alarm';
 use Path::Class;
-use Test::More;
+use Test::Most;
 
 BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllAlarms::File' }
 

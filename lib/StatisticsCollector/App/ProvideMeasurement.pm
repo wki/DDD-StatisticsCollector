@@ -72,6 +72,9 @@ has domain => (
     is         => 'ro',
     isa        => 'StatisticsCollector::Domain',
     lazy_build => 1,
+    handles    => [
+        'app',
+    ]
 );
 
 sub _build_domain {
@@ -92,8 +95,7 @@ sub _build_domain {
 sub run {
     my $self = shift;
 
-    $self->domain
-         ->application->measurement
+    $self->app->measurement
          ->provide_result($self->sensor, $self->result);
 }
 

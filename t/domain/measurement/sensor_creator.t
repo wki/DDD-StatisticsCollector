@@ -1,38 +1,32 @@
-use strict;
-use warnings;
 use FindBin;
-use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
-use Test::More;
-use Test::Exception;
+use Test::Most;
 
-BEGIN { $class = 'StatisticsCollector::Domain::Measurement::SensorCreator' }
+use ok 'StatisticsCollector::Domain::Measurement::SensorCreator';
 
-use ok $class;
-
-my $domain = MockDomain->new;
-my $sensor_creator = $class->new(
-    domain => $domain,
+my $d = MockDomain->new;
+my $c = StatisticsCollector::Domain::Measurement::SensorCreator->new(
+    domain => $d,
 );
 
 note 'failing creation';
 {
-    dies_ok { $sensor_creator->new_sensor }
+    dies_ok { $c->new_sensor }
         'creating an unnamed sensor dies';
     
-    dies_ok { $sensor_creator->new_sensor('') }
+    dies_ok { $c->new_sensor('') }
         'creating a sensor with empty name dies';
 
-    dies_ok { $sensor_creator->new_sensor('abc') }
+    dies_ok { $c->new_sensor('abc') }
         'creating a illegal-named sensor dies';
 }
 
 note 'succeeding creation';
 {
-    my $sensor = $sensor_creator->new_sensor('a/bb/ccc');
+    my $s = $c->new_sensor('a/bb/ccc');
     
-    isa_ok $sensor, 'StatisticsCollector::Domain::Measurement::Sensor';
+    isa_ok $s, 'StatisticsCollector::Domain::Measurement::Sensor';
 }
 
 done_testing;

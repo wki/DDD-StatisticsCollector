@@ -1,23 +1,17 @@
-use strict;
-use warnings;
-use vars '$class';
-use Test::More;
-use Test::Exception;
+use Test::Most;
 use Test::MockDateTime;
 
-BEGIN { $class = 'StatisticsCollector::Infrastructure::Notifier' }
+use ok 'StatisticsCollector::Infrastructure::Notifier';
 
-use ok $class;
+my $n = StatisticsCollector::Infrastructure::Notifier->new;
 
-my $notifier = $class->new;
+isa_ok $n, 'StatisticsCollector::Infrastructure::Notifier';
 
-isa_ok $notifier, $class;
-
-dies_ok { $notifier->notify }
+dies_ok { $n->notify }
     'notify() dies for abstract base class';
 
 on '2013-01-02 03:04:05' => sub {
-    is $notifier->notified_on,
+    is $n->notified_on,
         '2013-01-02 03:04:05',
         'current time';
 };

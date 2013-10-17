@@ -54,7 +54,7 @@ the core comain -- handles the raw measurement results provided by sensors
 =cut
 
 subdomain measurement => (
-    isa => 'Measurement',
+    # isa => 'Measurement',
 );
 
 =head2 condense
@@ -65,7 +65,7 @@ like hourly or daily periods
 =cut
 
 subdomain condense => (
-    isa => 'Condense',
+    # isa => 'Condense',
 );
 
 =head2 alarm
@@ -75,7 +75,7 @@ cares about discovery and clearing of alarm situations
 =cut
 
 subdomain alarm => (
-    isa => 'Alarm',
+    # isa => 'Alarm',
 );
 
 =head2 notification
@@ -85,26 +85,18 @@ notifies people when alarms are raised or cleared
 =cut
 
 subdomain notification => (
-    isa => 'Notification',
+    # isa => 'Notification',
 );
 
 =head2 application
 
-the application currently modelled as a subdomain
+the application containing all application services
 
-### FIXME: create a keyword, usage like:
-
-    application (
-        isa => 'Application',
-    );
-    
-    application;
+from the domain object, access it with $domain->app
 
 =cut
 
-subdomain application => (
-    isa => 'Application',
-);
+application;
 
 =head1 AUTHOR
 

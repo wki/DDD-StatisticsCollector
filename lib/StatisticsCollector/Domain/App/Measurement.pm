@@ -1,9 +1,9 @@
-package StatisticsCollector::Domain::Application::Measurement;
+package StatisticsCollector::Domain::App::Measurement;
 use DDD::Service;
 
 =head1 NAME
 
-StatisticsCollector::Domain::Application::Measurement - Measurement
+StatisticsCollector::Domain::App::Measurement - Measurement
 application service
 
 =head1 SYNOPSIS

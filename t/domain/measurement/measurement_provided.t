@@ -1,12 +1,8 @@
-use strict;
-use warnings;
-use vars '$class';
-use Test::More;
+use Test::Most;
 
-BEGIN { $class = 'StatisticsCollector::Domain::Measurement::MeasurementProvided' }
+use ok 'StatisticsCollector::Domain::Measurement::MeasurementProvided';
 
-use ok $class;
-
-isa_ok $class, 'DDD::Event';
+isa_ok 'StatisticsCollector::Domain::Measurement::MeasurementProvided',
+    'DDD::Event';
 
 done_testing;

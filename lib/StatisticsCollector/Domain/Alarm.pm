@@ -13,11 +13,11 @@ repository all_alarms => (
 );
 
 factory alarm_creator => (
-    isa => 'AlarmCreator',
+    # isa => 'AlarmCreator',
 );
 
 service alarm_check => (
-    isa          => 'AlarmCheck',
+    # isa          => 'AlarmCheck',
     dependencies => {
         all_rules     => dep('all_rules'),
         all_alarms    => dep('all_alarms'),

@@ -9,11 +9,11 @@ repository all_summaries => (
 );
 
 factory summaries_creator => (
-    isa => 'SummariesCreator',
+    # isa => 'SummariesCreator',
 );
 
 service condense_measures => (
-    isa          => 'CondenseMeasures',
+    # isa          => 'CondenseMeasures',
     dependencies => {
         all_summaries     => dep('all_summaries'),
         summaries_creator => dep('summaries_creator'),

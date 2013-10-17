@@ -1,35 +1,32 @@
-use strict;
-use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
-use Test::More;
-use Test::Exception;
+use Test::Most;
 
 use ok 'StatisticsCollector::Domain::Condense::SummariesCreator';
 
-my $domain = MockDomain->new;
-my $summaries_creator = StatisticsCollector::Domain::Condense::SummariesCreator->new(
-    domain => $domain,
+my $d = MockDomain->new;
+my $c = StatisticsCollector::Domain::Condense::SummariesCreator->new(
+    domain => $d,
 );
 
 note 'failing creation';
 {
-    dies_ok { $summaries_creator->new_summaries }
+    dies_ok { $c->new_summaries }
         'creating an unnamed summaries dies';
     
-    dies_ok { $summaries_creator->new_ssummaries('') }
+    dies_ok { $c->new_ssummaries('') }
         'creating a summaries with empty name dies';
 
-    dies_ok { $summaries_creator->new_summaries('abc') }
+    dies_ok { $c->new_summaries('abc') }
         'creating a illegal-named summaries dies';
 }
 
 note 'succeeding creation';
 {
-    my $summaries = $summaries_creator->new_summaries('a/bb/ccc');
+    my $s = $c->new_summaries('a/bb/ccc');
     
-    isa_ok $summaries, 'StatisticsCollector::Domain::Condense::Summaries';
+    isa_ok $s, 'StatisticsCollector::Domain::Condense::Summaries';
 }
 
 done_testing;

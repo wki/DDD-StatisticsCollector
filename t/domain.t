@@ -1,8 +1,6 @@
-use strict;
-use warnings;
 use vars '$class';
 use Path::Class;
-use Test::More;
+use Test::Most;
 
 BEGIN { $class = 'StatisticsCollector::Domain' }
 

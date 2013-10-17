@@ -1,11 +1,8 @@
-use strict;
-use warnings;
 use FindBin;
 use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
-use Test::More;
-use Test::Exception;
+use Test::Most;
 
 BEGIN { $class = 'StatisticsCollector::Domain::Alarm::AllRules' }
 

@@ -1,8 +1,5 @@
-use strict;
-use warnings;
 use aliased 'StatisticsCollector::Domain::Common::Measurement';
-use Test::More;
-use Test::Exception;
+use Test::Most;
 use Test::MockDateTime;
 
 use ok 'StatisticsCollector::Domain::Alarm::Condition';

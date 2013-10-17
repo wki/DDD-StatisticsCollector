@@ -61,6 +61,7 @@ has cleared_on => (
 has message => (
     is        => 'ro',
     isa       => 'Str',
+    required  => 0,
     predicate => 'has_alarm',
 );
 

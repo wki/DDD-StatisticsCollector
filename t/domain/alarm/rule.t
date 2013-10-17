@@ -1,7 +1,5 @@
-use strict;
-use warnings;
 use vars '$class';
-use Test::More;
+use Test::Most;
 
 BEGIN { $class = 'StatisticsCollector::Domain::Alarm::Rule' }
 

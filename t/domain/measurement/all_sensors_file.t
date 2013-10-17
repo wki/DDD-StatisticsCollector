@@ -1,22 +1,17 @@
-use strict;
-use warnings;
 use FindBin;
-use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
 use aliased 'StatisticsCollector::Domain::Measurement::Sensor';
 use Path::Class;
-use Test::More;
-
-BEGIN { $class = 'StatisticsCollector::Domain::Measurement::AllSensors::File' }
+use Test::Most;
 
 my $dir = Path::Class::tempdir(CLEANUP => 1);
 
-use ok $class;
+use ok 'StatisticsCollector::Domain::Measurement::AllSensors::File';
 
-my $domain = MockDomain->new;
-my $all_sensors = $class->new(
-    domain => $domain,
+my $d = MockDomain->new;
+my $s = StatisticsCollector::Domain::Measurement::AllSensors::File->new(
+    domain => $d,
     dir    => $dir,
 );
 
@@ -27,9 +22,9 @@ my $s_xyz = Sensor->new(
 
 note 'internal methods';
 {
-    is $all_sensors->_file_name('a/b/c'), 'a.b.c.json', 'file_name';
+    is $s->_file_name('a/b/c'), 'a.b.c.json', 'file_name';
     
-    is $all_sensors->_file('a/b/c')->stringify,
+    is $s->_file('a/b/c')->stringify,
         $dir->file('a.b.c.json')->stringify,
         'file';
 }
@@ -37,7 +32,7 @@ note 'internal methods';
 note 'saving';
 {
     ok !-f $dir->file('x.y.z.json'), 'x.y.z.json not present before save';
-    $all_sensors->save($s_xyz);
+    $s->save($s_xyz);
     ok -f $dir->file('x.y.z.json'), 'x.y.z.json present after save';
     
     # note scalar $dir->file('x.y.z.json')->slurp;
@@ -45,7 +40,7 @@ note 'saving';
 
 note 'loading';
 {
-    my $s_xyz = $all_sensors->by_name('x/y/z');
+    my $s_xyz = $s->by_name('x/y/z');
     
     is $s_xyz->sensor_id->name, 'x/y/z', 'sensor loaded';
     is $s_xyz->latest_measurement->result, 42, 'measurement';

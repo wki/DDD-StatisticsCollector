@@ -1,22 +1,17 @@
-use strict;
-use warnings;
 use FindBin;
-use vars '$class';
 use lib "$FindBin::Bin/../../lib";
 use MockDomain;
-use Test::More;
-use Test::Exception;
+use Test::Most;
 
-BEGIN { $class = 'StatisticsCollector::Domain::Measurement::AllSensors' }
-use ok $class;
+use ok 'StatisticsCollector::Domain::Measurement::AllSensors';
 
-my $domain = MockDomain->new;
-my $all_sensors = $class->new(domain => $domain);
+my $d = MockDomain->new;
+my $s = StatisticsCollector::Domain::Measurement::AllSensors->new(domain => $d);
 
-can_ok $all_sensors, qw(filtered by_name save);
+can_ok $s, qw(filtered by_name save);
 
-dies_ok { $all_sensors->filtered } 'filtered dies';
-dies_ok { $all_sensors->by_name } 'by_name dies';
-dies_ok { $all_sensors->save } 'save dies';
+dies_ok { $s->filtered } 'filtered dies';
+dies_ok { $s->by_name } 'by_name dies';
+dies_ok { $s->save } 'save dies';
 
 done_testing;

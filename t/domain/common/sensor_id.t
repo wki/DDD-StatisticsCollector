@@ -1,8 +1,5 @@
-use strict;
-use warnings;
 use vars '$class';
-use Test::More;
-use Test::Exception;
+use Test::Most;
 
 BEGIN { $class = 'StatisticsCollector::Domain::Common::SensorId' }
 
