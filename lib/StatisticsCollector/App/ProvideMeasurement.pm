@@ -2,7 +2,8 @@ package StatisticsCollector::App::ProvideMeasurement;
 use Moose;
 use MooseX::Types::Path::Class 'Dir';
 use StatisticsCollector::Domain;
-use aliased 'StatisticsCollector::Infrastructure::Notifier::Memory' => 'Notifier';
+use aliased 'StatisticsCollector::Infrastructure::Notifier::Memory'
+    => 'Notifier';
 use namespace::autoclean;
 
 with 'MooseX::Getopt::Strict';
