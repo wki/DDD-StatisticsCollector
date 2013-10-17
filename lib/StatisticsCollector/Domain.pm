@@ -53,9 +53,7 @@ the core comain -- handles the raw measurement results provided by sensors
 
 =cut
 
-subdomain measurement => (
-    # isa => 'Measurement',
-);
+subdomain 'measurement';
 
 =head2 condense
 
@@ -64,9 +62,7 @@ like hourly or daily periods
 
 =cut
 
-subdomain condense => (
-    # isa => 'Condense',
-);
+subdomain 'condense';
 
 =head2 alarm
 
@@ -74,9 +70,7 @@ cares about discovery and clearing of alarm situations
 
 =cut
 
-subdomain alarm => (
-    # isa => 'Alarm',
-);
+subdomain 'alarm';
 
 =head2 notification
 
@@ -84,9 +78,7 @@ notifies people when alarms are raised or cleared
 
 =cut
 
-subdomain notification => (
-    # isa => 'Notification',
-);
+subdomain 'notification';
 
 =head2 application
 

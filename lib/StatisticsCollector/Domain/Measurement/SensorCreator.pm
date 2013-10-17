@@ -27,7 +27,7 @@ sub new_sensor {
     my ($self, $sensor_id) = @_;
     
     return Sensor->new(
-        id          => $sensor_id,
+        id        => $sensor_id,
         sensor_id => $sensor_id,
     );
 }

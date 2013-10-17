@@ -82,7 +82,7 @@ sub provide_measurement_result {
     $self->_set_latest_measurement($result_or_value);
     $self->publish(
         MeasurementProvided->new(
-            sensor_id => $self->id,
+            sensor_id   => $self->id,
             measurement => $self->latest_measurement
         )
     );

@@ -27,7 +27,7 @@ sub new_summaries {
     my ($self, $sensor_id) = @_;
     
     return Summaries->new(
-        id          => $sensor_id,
+        id        => $sensor_id,
         sensor_id => $sensor_id,
     );
 }
