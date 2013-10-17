@@ -1,5 +1,7 @@
 package StatisticsCollector::Domain::Alarm;
-use DDD::Domain; # FIXME: SubDomain
+use DDD::SubDomain;
+
+aggregate 'alarm';
 
 repository all_rules => (
     isa => 'AllRules::Fixed',
@@ -12,12 +14,9 @@ repository all_alarms => (
     },
 );
 
-factory alarm_creator => (
-    # isa => 'AlarmCreator',
-);
+factory 'alarm_creator';
 
 service alarm_check => (
-    # isa          => 'AlarmCheck',
     dependencies => {
         all_rules     => dep('all_rules'),
         all_alarms    => dep('all_alarms'),

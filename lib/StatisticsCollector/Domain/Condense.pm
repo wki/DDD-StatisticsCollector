@@ -1,5 +1,7 @@
 package StatisticsCollector::Domain::Condense;
-use DDD::Domain; # FIXME: SubDomain
+use DDD::SubDomain;
+
+aggregate 'summaries';
 
 repository all_summaries => (
     isa          => 'AllSummaries::File',
@@ -8,12 +10,9 @@ repository all_summaries => (
     },
 );
 
-factory summaries_creator => (
-    # isa => 'SummariesCreator',
-);
+factory 'summaries_creator';
 
 service condense_measures => (
-    # isa          => 'CondenseMeasures',
     dependencies => {
         all_summaries     => dep('all_summaries'),
         summaries_creator => dep('summaries_creator'),

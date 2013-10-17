@@ -82,7 +82,7 @@ sub _build_domain {
     my $self = shift;
 
     StatisticsCollector::Domain->instance(
-        _debug      => 'subscribe process',
+      # _debug      => 'process', # build subscribe process
         storage_dir => $self->storage_dir,
     );
 }

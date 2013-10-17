@@ -1,8 +1,6 @@
 package StatisticsCollector::Domain::App;
-use DDD::Domain;
+use DDD::Application;
 
-service measurement => (
-    # isa => 'Measurement',
-);
+service 'measurement';
 
 1;

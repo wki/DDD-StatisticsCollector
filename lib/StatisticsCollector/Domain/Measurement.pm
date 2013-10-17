@@ -1,5 +1,7 @@
 package StatisticsCollector::Domain::Measurement;
-use DDD::Domain; # FIXME: SubDomain
+use DDD::SubDomain;
+
+aggregate 'sensor';
 
 repository all_sensors => (
     isa          => 'AllSensors::File',
@@ -8,8 +10,6 @@ repository all_sensors => (
     },
 );
 
-factory sensor_creator => (
-    # isa => 'SensorCreator',
-);
+factory 'sensor_creator';
 
 1;

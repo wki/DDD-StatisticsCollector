@@ -1,8 +1,7 @@
 package StatisticsCollector::Domain::Notification;
-use DDD::Domain; # FIXME: SubDomain
+use DDD::SubDomain;
 
 service message_composer => (
-    # isa => 'MessageComposer',
     dependencies => {
         notifier => dep('/notifier'),
     },
