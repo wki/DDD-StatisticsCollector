@@ -34,6 +34,12 @@ has [qw(min max sum nr_values)] => (
 
 =cut
 
+sub avg {
+    my $self = shift;
+    
+    return sprintf('%d', $self->sum / $self->nr_values);
+}
+
 =head2 range_matches ( $timestamp )
 
 returns true if a timestamp is in the same range as the summary

@@ -40,6 +40,10 @@ sub provide_result {
 =cut
 
 sub sensor_by_name {
+    my ($self, $sensor_id) = @_;
+    
+    $self->domain->measurement
+         ->all_sensors->by_name($sensor_id);
 }
 
 =head2 sensors_filtered ( $to_be_defined )
@@ -54,6 +58,10 @@ sub sensors_filtered {
 =cut
 
 sub summaries_for_sensor{
+    my ($self, $sensor_id) = @_;
+    
+    $self->domain->condense
+         ->all_summaries->for_sensor($sensor_id);
 }
 
 __PACKAGE__->meta->make_immutable;
