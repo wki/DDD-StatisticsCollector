@@ -1,0 +1,1 @@
+{"__CLASS__":"StatisticsCollector::Domain::Alarm::Alarm","id":"rio/heizung/temperatur","previous_alarms":[],"sensor_id":{"__CLASS__":"StatisticsCollector::Domain::Common::SensorId","name":"rio/heizung/temperatur"}}
