@@ -31,8 +31,10 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    # Hello World
-    # $c->response->body( $c->welcome_message );
+    # get a list of all sensors.
+    # save in $c->stash->{sensors};
+    
+    # TODO: implement filtered, expand template
 }
 
 =head2 default
