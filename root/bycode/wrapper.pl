@@ -12,21 +12,21 @@ template {
             load css => '/static/css/site.css';
         };
         body {
-            div(class => 'navbar navbar-inverse navbar-fixed-top') {
+            div.navbar.navbar-inverse.navbar-fixed-top {
                 div.container {
-                    div(class => 'navbar-header') {
-                        button(type => 'button', class => 'navbar-toggle', data_toggle => 'collapse', data_target => '.navbar-collapse') {
-                            span(class => 'icon-bar');
-                            span(class => 'icon-bar');
-                            span(class => 'icon-bar');
+                    div.navbar-header {
+                        button.navbar-toggle(type => 'button', data_toggle => 'collapse', data_target => '.navbar-collapse') {
+                            span.icon-bar;
+                            span.icon-bar;
+                            span.icon-bar;
                         };
-                        a(class => 'navbar-brand', href => '#') { 'StatisticsCollector' };
+                        a.navbar-brand (href => '#') { 'StatisticsCollector' };
                     };
-                    div(class => 'collapse navbar-collapse') {
-                        ul(class => 'nav navbar-nav') {
-                            li.active { a(href => '#') { 'Home' } };
-                            li { a(href => '#about') { 'About' } };
-                            li { a(href => '#contact') { 'Contact' } };
+                    div.collapse.navbar-collapse {
+                        ul.nav.navbar-nav {
+                            li.active { a(href => '#')        { 'Home'    } };
+                            li        { a(href => '#about')   { 'About'   } };
+                            li        { a(href => '#contact') { 'Contact' } };
                         };
                     };
                 };
