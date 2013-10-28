@@ -1,0 +1,1 @@
+{"__CLASS__":"StatisticsCollector::Domain::Measurement::Sensor","id":"erlangen/buero/temperatur","latest_measurement":{"__CLASS__":"StatisticsCollector::Domain::Common::Measurement","measured_on":1382983836,"result":22},"sensor_id":{"__CLASS__":"StatisticsCollector::Domain::Common::SensorId","name":"erlangen/buero/temperatur"}}

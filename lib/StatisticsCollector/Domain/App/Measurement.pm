@@ -51,6 +51,10 @@ sub sensor_by_name {
 =cut
 
 sub sensors_filtered {
+    my ($self, $filter) = @_;
+    
+    $self->domain->measurement
+         ->all_sensors->filtered($filter);
 }
 
 =head2 summaries_for_sensor ( $sensor_id )

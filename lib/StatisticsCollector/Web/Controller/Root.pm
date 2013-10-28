@@ -31,10 +31,12 @@ The root page (/)
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    # get a list of all sensors.
-    # save in $c->stash->{sensors};
+    $c->stash->{sensors} =
+        $c->model('Domain')
+          ->app->measurement
+          ->sensors_filtered;
     
-    # TODO: implement filtered, expand template
+    use Data::Dumper; warn Dumper $c->stash->{sensors};
 }
 
 =head2 default

@@ -33,8 +33,12 @@ returns a list of L<SensorInfo> objects matched by a given filter.
 sub filtered {
     my ($self, $filter) = @_;
     
-    # TODO
-    my @filtered;
+    my @filtered =
+        # TODO: grep
+        map { warn "MAP: $_"; $self->by_name($_) }
+        $self->_all_sensor_ids;
+    
+    warn "nr filtered: " . scalar @filtered;
     
     return wantarray ? @filtered : \@filtered;
 }

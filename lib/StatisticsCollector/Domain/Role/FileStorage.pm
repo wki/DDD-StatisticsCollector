@@ -67,6 +67,29 @@ sub _file {
     return $self->dir->file($self->_file_name($sensor_id));
 }
 
+# return all sensor_id names
+sub _all_sensor_ids {
+    my $self = shift;
+    
+    my @sensor_ids;
+    
+    my $suffix = $self->file_suffix // '';
+    
+    foreach my $file ($self->dir->children) {
+        next if !-f $file;
+        
+        my @parts = split qr{[.]}xms, $file->basename;
+        next if pop @parts ne 'json';
+        next if ($parts[3] // '') ne $suffix;
+        
+        push @sensor_ids, join '/', @parts[0..2];
+    }
+    
+    # warn 'All sensor ids: ' . join ', ', @sensor_ids;
+    
+    return @sensor_ids;
+}
+
 1;
 
 =head1 AUTHOR
