@@ -36,7 +36,7 @@ sub index :Path :Args(0) {
           ->app->measurement
           ->sensors_filtered;
     
-    use Data::Dumper; warn Dumper $c->stash->{sensors};
+    # use Data::Dumper; warn Dumper $c->stash->{sensors};
 }
 
 =head2 default

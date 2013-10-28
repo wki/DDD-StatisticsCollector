@@ -28,6 +28,8 @@ sub _build_file_suffix { '' }
 
 returns a list of L<SensorInfo> objects matched by a given filter.
 
+# TODO: specify filter
+
 =cut
 
 sub filtered {
@@ -35,17 +37,15 @@ sub filtered {
     
     my @filtered =
         # TODO: grep
-        map { warn "MAP: $_"; $self->by_name($_) }
+        map { $self->by_name($_) }
         $self->_all_sensor_ids;
-    
-    warn "nr filtered: " . scalar @filtered;
     
     return wantarray ? @filtered : \@filtered;
 }
 
 =head2 by_name ( $sensor_id )
 
-give back a senor uniquely identified by a given name. If no sensor can be
+give back a sensor uniquely identified by a given name. If no sensor can be
 found with the requested name, C<undef> is returned
 
 =cut
