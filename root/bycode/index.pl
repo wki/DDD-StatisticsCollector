@@ -18,8 +18,7 @@ template {
                         $sensor->sensor_id->name 
                     };
                     tcol { 
-                        $sensor->latest_measurement->measured_on->ymd . ' ' .
-                        $sensor->latest_measurement->measured_on->hms
+                        $sensor->latest_measurement->measured_on->strftime('%d.%m.%Y %H:%M')
                     };
                     tcol { 
                         $sensor->latest_measurement->result 

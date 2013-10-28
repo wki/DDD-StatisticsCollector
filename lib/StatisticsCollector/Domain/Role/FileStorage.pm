@@ -72,14 +72,12 @@ sub _all_sensor_ids {
     my $self = shift;
 
     my @sensor_ids;
-    my $suffix = $self->file_suffix // '';
-
     foreach my $file ($self->dir->children) {
         next if !-f $file;
 
         my @parts = split qr{[.]}xms, $file->basename;
         next if pop @parts ne 'json';
-        next if ($parts[3] // '') ne $suffix;
+        next if ($parts[3] // '') ne $self->file_suffix;
 
         push @sensor_ids, join '/', @parts[0..2];
     }
