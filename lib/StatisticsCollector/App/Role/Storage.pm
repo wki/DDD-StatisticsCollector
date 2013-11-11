@@ -27,9 +27,9 @@ has storage_dir => (
     is            => 'ro',
     isa           => Dir,
     coerce        => 1,
-    required      => 1,
+    default       => 'root/storage',
     cmd_aliases   => 'd',
-    documentation => 'directory for holding stored files (mandatory)',
+    documentation => 'directory for holding stored files (default: root/storage)',
 );
 
 1;

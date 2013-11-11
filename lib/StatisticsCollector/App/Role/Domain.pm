@@ -1,7 +1,7 @@
 package StatisticsCollector::App::Role::Domain;
 use Moose::Role;
 use StatisticsCollector::Domain;
-
+use StatisticsCollector::Infrastructure::Notifier::Print;
 
 =head1 NAME
 
@@ -34,6 +34,7 @@ sub _build_domain {
     StatisticsCollector::Domain->instance(
       # _debug      => 'build', # build subscribe process
         storage_dir => $self->storage_dir,
+        notifier    => StatisticsCollector::Infrastructure::Notifier::Print->new,
     );
 }
 
