@@ -11,6 +11,7 @@ use ok $class;
 my $domain = MockDomain->new;
 
 my $alarm = $class->new(domain => $domain, id => 'a/bb/ccc');
+$alarm->meta->domain($domain);
 
 note 'basic behavior';
 {
